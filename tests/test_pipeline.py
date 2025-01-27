@@ -132,8 +132,8 @@ class TestPipeline(unittest.TestCase):
             entity_end = feature["entity_position"][0][1]
             
             # Check entity markers are present
-            self.assertEqual(tokens[entity_start], "<e>")
-            self.assertEqual(tokens[entity_end], "</e>")
+            self.assertEqual(tokens[entity_start], "[ENT]")
+            self.assertEqual(tokens[entity_end], "[/ENT]")
             
             # Check entity is between markers
             entity_tokens = tokens[entity_start+1:entity_end]

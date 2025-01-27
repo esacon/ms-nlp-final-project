@@ -34,7 +34,7 @@ class FeatureExtractor:
         """Set the tokenizer and model with added special tokens."""
         # Add special tokens for entity markers
         tokenizer.add_special_tokens(
-            {'additional_special_tokens': ['<e>', '</e>']})
+            {'additional_special_tokens': ['[ENT]', '[/ENT]']})
         model.resize_token_embeddings(len(tokenizer))
         self.tokenizer = tokenizer
         self.model = model.to(self.device)
@@ -87,26 +87,26 @@ class FeatureExtractor:
                               new_end + self.context_window)
             left_context = preprocessed_text[context_start:new_start]
             right_context = preprocessed_text[new_end:context_end]
-            marked_text = f"{left_context}<e>{mention}</e>{right_context}"
+            marked_text = f"{left_context}[ENT]{mention}[/ENT]{right_context}"
 
             # Tokenize and find entity markers
             tokens = self.tokenizer.tokenize(marked_text)
             start_marker_idx = end_marker_idx = -1
             for i, token in enumerate(tokens):
-                if token == '<e>':
+                if token == '[ENT]':
                     start_marker_idx = i
-                elif token == '</e>':
+                elif token == '[/ENT]':
                     end_marker_idx = i
                     break
 
             # Fallback: Check with space-aware markers if not found
             if start_marker_idx == -1 or end_marker_idx == -1:
-                marked_text = f"{left_context} <e> {mention} </e> {right_context}"
+                marked_text = f"{left_context} [ENT] {mention} [/ENT] {right_context}"
                 tokens = self.tokenizer.tokenize(marked_text)
                 for i, token in enumerate(tokens):
-                    if token == '<e>':
+                    if token == '[ENT]':
                         start_marker_idx = i
-                    elif token == '</e>':
+                    elif token == '[/ENT]':
                         end_marker_idx = i
                         break
 
@@ -132,9 +132,9 @@ class FeatureExtractor:
                 # Adjust marker positions after truncation
                 start_marker_idx = end_marker_idx = -1
                 for i, token in enumerate(truncated_tokens):
-                    if token == '<e>':
+                    if token == '[ENT]':
                         start_marker_idx = i
-                    elif token == '</e>':
+                    elif token == '[/ENT]':
                         end_marker_idx = i
                         break
                 if start_marker_idx == -1 or end_marker_idx == -1:

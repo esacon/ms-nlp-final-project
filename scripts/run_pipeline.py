@@ -1,4 +1,3 @@
-import os
 import sys
 from pathlib import Path
 
@@ -11,7 +10,6 @@ import torch
 from src.data_loader import DataLoader
 from src.feature_extraction import FeatureExtractor
 from src.utils import get_logger
-import json
 
 logger = get_logger(__name__)
 

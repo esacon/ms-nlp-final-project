@@ -11,7 +11,6 @@ model:
   context_window: 128
 
 preprocessing:
-  context_window: 100
   min_words_per_line: 4
   remove_urls: true
   remove_emojis: true
