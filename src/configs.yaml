@@ -1,0 +1,43 @@
+model:
+  name: "xlm-roberta-large"
+  learning_rate: 2e-5
+  num_epochs: 3
+  batch_size: 16
+  max_length: 512
+  warmup_ratio: 0.1
+  weight_decay: 0.01
+  dropout_prob: 0.1
+  attention_dropout: 0.1
+  context_window: 128
+
+preprocessing:
+  context_window: 100
+  min_words_per_line: 4
+  remove_urls: true
+  remove_emojis: true
+  remove_social: true
+  normalize_unicode: true
+  remove_duplicate_lines: true
+  remove_short_lines: true
+  merge_paragraphs: true
+  clean_text: true
+  
+
+paths:
+  train_data_dir: "data/train"
+  dev_data_dir: "data/dev"
+  test_data_dir: "data/test"
+  model_output_dir: "models"
+  taxonomy_path: "src/taxonomy.json"
+
+training:
+  gradient_accumulation_steps: 2
+  mixed_precision: true
+  eval_steps: 100
+  save_steps: 1000
+  logging_steps: 100
+  seed: 42
+
+languages:
+  supported: ["EN", "PT"]
+  default: "EN"

@@ -1,0 +1,31 @@
+{
+  "ROLE_TAXONOMY": [
+    {
+      "Protagonist": [
+        "Guardian",
+        "Virtuous",
+        "Martyr",
+        "Rebel",
+        "Peacemaker",
+        "Underdog"
+      ],
+
+      "Antagonist": [
+        "Instigator",
+        "Conspirator",
+        "Tyrant",
+        "Foreign Adversary",
+        "Traitor",
+        "Spy",
+        "Saboteur",
+        "Corrupt",
+        "Incompetent",
+        "Terrorist",
+        "Deceiver",
+        "Bigot"
+      ],
+
+      "Innocent": ["Forgotten", "Exploited", "Victim", "Scapegoat"]
+    }
+  ]
+}
