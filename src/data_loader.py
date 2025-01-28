@@ -171,7 +171,10 @@ class DataLoader:
         if split == "train":
             documents_dir = "raw-documents"
             annotations_file = "subtask-1-annotations.txt"
-        else:  # dev or test
+        elif split == "dev":
+            documents_dir = "subtask-1-documents"
+            annotations_file = "subtask-1-annotations.txt"
+        else:  # test
             documents_dir = "subtask-1-documents"
             annotations_file = "subtask-1-entity-mentions.txt"
             
@@ -208,13 +211,12 @@ class DataLoader:
                         try:
                             parts = line.strip().split("\t")
                             article_id = parts[0]
-                            if split == "train":
-                                # Training data has role annotations
+                            if split in ["train", "dev"]:
                                 annotation = self._parse_annotation(parts, ann_path)
                                 self.logger.debug(f"Parsed annotation for {article_id}: {annotation.entity_mention} "
                                                f"[{annotation.main_role}: {annotation.fine_grained_roles}]")
                             else:
-                                # Dev/test data only has entity mentions
+                                # Test data only has entity mentions
                                 annotation = EntityAnnotation(
                                     article_id=article_id,
                                     entity_mention=parts[1],
