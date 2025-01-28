@@ -523,6 +523,11 @@ class TrainingPipeline:
                     main_preds = torch.argmax(main_probs, dim=1)
                     fine_probs = torch.sigmoid(outputs.fine_logits)
                     
+                    # Debug: Print raw probabilities
+                    logger.info("\nRaw model outputs:")
+                    logger.info(f"Main role probabilities shape: {main_probs.shape}")
+                    logger.info(f"Fine-grained probabilities shape: {fine_probs.shape}")
+                    
                     # Convert to role labels
                     for i in range(len(main_preds)):
                         entity_idx = processed_entities + i
@@ -531,41 +536,56 @@ class TrainingPipeline:
                             
                         article, entity = all_annotations[entity_idx]
                         
+                        # Print raw probabilities for this entity
+                        logger.info(f"\nEntity: {entity.entity_mention}")
+                        logger.info("Main role probabilities:")
+                        for role_idx, prob in enumerate(main_probs[i]):
+                            logger.info(f"{self.main_role_map[role_idx]}: {prob.item():.4f}")
+                        
+                        logger.info("Fine-grained role probabilities:")
+                        for role_idx, prob in enumerate(fine_probs[i]):
+                            logger.info(f"{FINE_GRAINED_ROLES[role_idx]}: {prob.item():.4f}")
+                        
                         # Get main role with highest probability
                         main_role = self.main_role_map[main_preds[i].item()]
                         main_prob = main_probs[i, main_preds[i]].item()
                         
-                        # Get fine-grained roles based on probabilities and main role
+                        # Get fine-grained roles using direct thresholding
                         fine_roles = []
+                        threshold = 0.5
                         
-                        # Get valid fine-grained roles for the predicted main role
-                        if main_role == "Protagonist":
-                            valid_roles = FINE_GRAINED_ROLES[:6]  # First 6 are protagonist roles
-                        elif main_role == "Antagonist":
-                            valid_roles = FINE_GRAINED_ROLES[6:18]  # Next 12 are antagonist roles
-                        else:  # Innocent
-                            valid_roles = FINE_GRAINED_ROLES[18:]  # Last 4 are innocent roles
-                        
-                        # Get probabilities for valid roles
-                        valid_probs = []
-                        for role in valid_roles:
-                            role_idx = FINE_GRAINED_ROLES.index(role)
+                        # Get probabilities for all roles
+                        role_probs = []
+                        for role_idx in range(len(FINE_GRAINED_ROLES)):
                             prob = fine_probs[i, role_idx].item()
-                            valid_probs.append((prob, role))
+                            if prob > threshold:
+                                role_probs.append((prob, FINE_GRAINED_ROLES[role_idx]))
                         
-                        # Sort by probability and take top K
-                        valid_probs.sort(reverse=True)
-                        threshold = 0.3
-                        max_roles = 3
+                        # Sort by probability
+                        role_probs.sort(reverse=True)
                         
-                        for prob, role in valid_probs:
-                            if prob < threshold or len(fine_roles) >= max_roles:
-                                break
-                            fine_roles.append(role)
+                        # Filter roles based on main role category
+                        if main_role == "Protagonist":
+                            valid_roles = set(FINE_GRAINED_ROLES[:6])
+                        elif main_role == "Antagonist":
+                            valid_roles = set(FINE_GRAINED_ROLES[6:18])
+                        else:  # Innocent
+                            valid_roles = set(FINE_GRAINED_ROLES[18:])
                         
-                        # Ensure at least one fine-grained role
-                        if not fine_roles and valid_probs:
-                            fine_roles = [valid_probs[0][1]]  # Take highest probability valid role
+                        # Take up to 3 valid roles that are above threshold
+                        for prob, role in role_probs:
+                            if role in valid_roles and len(fine_roles) < 3:
+                                fine_roles.append(role)
+                        
+                        # If no roles above threshold, take highest probability valid role
+                        if not fine_roles:
+                            valid_probs = [(prob, role) for prob, role in role_probs if role in valid_roles]
+                            if valid_probs:
+                                fine_roles = [valid_probs[0][1]]
+                            else:
+                                # Fallback: take highest probability role overall
+                                max_prob_idx = torch.argmax(fine_probs[i]).item()
+                                fine_roles = [FINE_GRAINED_ROLES[max_prob_idx]]
                         
                         predictions.append({
                             "article_id": article.id,
@@ -577,10 +597,10 @@ class TrainingPipeline:
                         })
                         
                         # Log predictions for debugging
-                        logger.debug(f"\nPrediction for {article.id} - {entity.entity_mention}:")
-                        logger.debug(f"Main role: {main_role} (prob: {main_prob:.4f})")
-                        logger.debug(f"Fine roles: {fine_roles}")
-                        logger.debug(f"Top valid role probs: {valid_probs[:5]}")
+                        logger.info(f"\nPrediction for {article.id} - {entity.entity_mention}:")
+                        logger.info(f"Main role: {main_role} (prob: {main_prob:.4f})")
+                        logger.info(f"Fine roles: {fine_roles}")
+                        logger.info(f"Top role probs: {role_probs[:5]}")
                     
                     processed_entities += len(main_preds)
             
@@ -613,9 +633,9 @@ class TrainingPipeline:
                     pred["entity_mention"],
                     str(pred["start_offset"]),
                     str(pred["end_offset"]),
-                    pred["main_role"]
+                    pred["main_role"],
                 ]
-                # Add fine-grained roles as separate columns
+                # Add fine-grained roles
                 line_parts.extend(pred["fine_grained_roles"])
                 
                 # Join with tabs and write
