@@ -41,7 +41,7 @@ class EntityDataset(Dataset):
     def __init__(
         self,
         features: List[Dict],
-        labels: Optional[List[Dict]] = None,
+        labels: Optional[Dict] = None,
         taxonomy: Optional[RoleTaxonomy] = None
     ):
         self.features = features
@@ -51,9 +51,9 @@ class EntityDataset(Dataset):
         self.logger = get_logger(__name__)
         
         # Validate that if we have labels, we have them for all features
-        if self.labels is not None and len(self.labels) != len(self.features):
+        if self.labels is not None and len(self.labels["main_labels"]) != len(self.features):
             self.logger.warning(
-                f"Number of labels ({len(self.labels)}) doesn't match number of features ({len(self.features)}). "
+                f"Number of labels ({len(self.labels['main_labels'])}) doesn't match number of features ({len(self.features)}). "
                 "Labels will be ignored."
             )
             self.labels = None
@@ -74,13 +74,10 @@ class EntityDataset(Dataset):
         }
 
         # Only add labels if they exist and index is valid
-        if self.labels is not None and idx < len(self.labels):
+        if self.labels is not None:
             try:
-                item["main_labels"] = self.labels[idx]["main_role"]
-                fine_roles = torch.zeros(self.num_fine_labels)
-                for role_idx in self.labels[idx]["fine_roles"]:
-                    fine_roles[role_idx] = 1
-                item["fine_labels"] = fine_roles
+                item["main_labels"] = self.labels["main_labels"][idx]
+                item["fine_labels"] = self.labels["fine_labels"][idx]
             except Exception as e:
                 self.logger.warning(f"Error processing labels for index {idx}: {e}")
                 pass

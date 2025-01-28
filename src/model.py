@@ -3,9 +3,7 @@ import torch
 import torch.nn.functional as F
 from dataclasses import dataclass
 from transformers import XLMRobertaModel, XLMRobertaTokenizerFast
-from torch.optim import AdamW
-from transformers import get_scheduler
-from typing import Tuple, Dict, Optional, NamedTuple
+from typing import Tuple, Dict, Optional
 from src.utils import get_device
 
 @dataclass

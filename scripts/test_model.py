@@ -12,7 +12,7 @@ from src.feature_extraction import FeatureExtractor
 from src.model import EntityRoleClassifier
 from src.utils import get_logger
 import yaml
-from transformers import RobertaTokenizerFast, RobertaModel
+from transformers import XLMRobertaModel, XLMRobertaTokenizerFast
 
 logger = get_logger(__name__)
 
@@ -107,8 +107,8 @@ def main():
         )
 
         # Load tokenizer and model for feature extraction
-        tokenizer = RobertaTokenizerFast.from_pretrained(base_model_name)
-        model_base = RobertaModel.from_pretrained(base_model_name)
+        tokenizer = XLMRobertaTokenizerFast.from_pretrained(base_model_name)
+        model_base = XLMRobertaModel.from_pretrained(base_model_name)
         feature_extractor.set_tokenizer_and_model(tokenizer, model_base)
 
         # Initialize our classifier model with the same base model name

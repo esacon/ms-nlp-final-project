@@ -1,88 +1,99 @@
 import argparse
-import logging
-from datetime import datetime
-from src.pipeline import Pipeline, run_training, run_testing
+import os
+import sys
+from pathlib import Path
+
+# Add project root to Python path
+project_root = str(Path(__file__).parent)
+sys.path.append(project_root)
+
+from src.train_pipeline import run_training, run_evaluation
 from src.utils import get_logger
-from src.evaluate import evaluate_model
 
-# Set up logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
-
-def parse_args():
+def main():
     parser = argparse.ArgumentParser(
-        description="Entity Framing in English and Portuguese"
+        description="Train and evaluate entity role classification model"
     )
+    
     parser.add_argument(
         "--task",
-        choices=["train", "evaluate", "test"],
+        type=str,
         required=True,
-        help="Task to perform (train, evaluate, or test)",
+        choices=["train", "evaluate"],
+        help="Task to perform: train or evaluate"
     )
+    
+    parser.add_argument(
+        "--languages",
+        type=str,
+        default="EN,PT",
+        help="Languages to process (comma-separated). Example: EN,PT"
+    )
+    
     parser.add_argument(
         "--config",
         type=str,
         default="src/configs.yaml",
-        help="Path to configuration file",
+        help="Path to configuration file"
     )
+    
+    parser.add_argument(
+        "--output_dir",
+        type=str,
+        default="models" if "--task" == "train" else "predictions",
+        help="Directory to save outputs (models or predictions)"
+    )
+    
     parser.add_argument(
         "-f",
+        "--model_path",
         type=str,
-        default=f"models/model_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pt",
-        help="Path to saved model (required for evaluation)",
+        help="Path to model checkpoint (required for evaluation)"
     )
+
     parser.add_argument(
-        "--languages",
-        nargs="+",
-        choices=["EN", "PT"],
-        default=["EN", "PT"],
-        help="Languages to process",
+        "--max_articles",
+        type=int,
+        default=None,
+        help="Maximum number of articles to process (for testing)"
     )
-    parser.add_argument(
-        "--model_name",
-        type=str,
-        default=f"model_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pt",
-        help="Path to model file (for testing)",
-    )
-    return parser.parse_args()
 
-
-def main():
-    """Main entry point."""
-    args = parse_args()
-
+    args = parser.parse_args()
+    
+    # Convert languages string to list
+    languages = [lang.strip() for lang in args.languages.split(",")]
+    
     try:
+        # Make sure the output directory exists
+        os.makedirs(args.output_dir, exist_ok=True)
+        
         if args.task == "train":
-            logger.info("Starting training mode")
-            run_training(args.config, args.languages, args.model_name)
+            logger.info(f"Starting training for languages: {languages}")
+            run_training(
+                config_path=args.config,
+                languages=languages,
+                max_articles=args.max_articles
+            )
+            
         elif args.task == "evaluate":
             if not args.model_path:
-                raise ValueError("Model path is required for evaluation")
-
-            logger.info("Starting evaluation...")
-            pipeline = Pipeline(args.config)
-            results = evaluate_model(
-                processed_data=pipeline.prepare_evaluation_data(),
+                raise ValueError("Model path (-f) is required for evaluation")
+                
+            logger.info(f"Starting evaluation for languages: {languages}")
+            run_evaluation(
+                config_path=args.config,
                 model_path=args.model_path,
-                config=pipeline.config,
+                languages=languages,
+                output_dir=args.output_dir,
+                split="test",
+                max_articles=args.max_articles
             )
-
-            logger.info("Evaluation Results:")
-            logger.info(f"Exact Match Ratio: {results['exact_match_ratio']:.4f}")
-            logger.info(f"Macro Precision: {results['macro_precision']:.4f}")
-            logger.info(f"Macro Recall: {results['macro_recall']:.4f}")
-            logger.info(f"Macro F1: {results['macro_f1']:.4f}")
-        elif args.task == "test":
-            logger.info("Starting testing mode")
-            run_testing(args.config, args.model_path)
+            
     except Exception as e:
-        logger.error(f"Error occurred: {str(e)}")
-        raise
-
+        logger.error(f"Error in {args.task}: {str(e)}", exc_info=True)
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
