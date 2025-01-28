@@ -9,7 +9,7 @@ from typing import Dict, Any
 project_root = str(Path(__file__).parent.parent)
 sys.path.append(project_root)
 
-from transformers import RobertaTokenizerFast, RobertaModel
+from transformers import XLMRobertaTokenizerFast, XLMRobertaModel
 from src.data_loader import DataLoader
 from src.feature_extraction import FeatureExtractor
 from src.utils import get_logger
@@ -153,8 +153,8 @@ def main():
     
     # Initialize feature extractor with model and tokenizer
     feature_extractor = FeatureExtractor()
-    tokenizer = RobertaTokenizerFast.from_pretrained("xlm-roberta-base")
-    model = RobertaModel.from_pretrained("xlm-roberta-base")
+    tokenizer = XLMRobertaTokenizerFast.from_pretrained("xlm-roberta-base")
+    model = XLMRobertaModel.from_pretrained("xlm-roberta-base")
     feature_extractor.set_tokenizer_and_model(tokenizer, model)
     
     data_loader = DataLoader(config)
