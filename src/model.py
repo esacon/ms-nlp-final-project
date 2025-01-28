@@ -37,18 +37,19 @@ class EntityRoleClassifier(torch.nn.Module):
         self.roberta.resize_token_embeddings(len(self.tokenizer))
 
         hidden_size = self.roberta.config.hidden_size
+        combined_size = hidden_size * 2
 
         # Entity-aware attention layer
         self.entity_attention = torch.nn.MultiheadAttention(
             embed_dim=hidden_size,
-            num_heads=8,
+            num_heads=16,  # Increased for larger model
             dropout=config["model"]["attention_dropout"],
             batch_first=True
         )
 
         # Main role classifier (3 classes)
         self.main_classifier = torch.nn.Sequential(
-            torch.nn.Linear(hidden_size * 2, hidden_size),
+            torch.nn.Linear(combined_size, hidden_size),
             torch.nn.LayerNorm(hidden_size),
             torch.nn.Dropout(config["model"]["dropout_prob"]),
             torch.nn.GELU(),
@@ -57,7 +58,7 @@ class EntityRoleClassifier(torch.nn.Module):
 
         # Fine-grained role classifier (multi-label)
         self.fine_classifier = torch.nn.Sequential(
-            torch.nn.Linear(hidden_size * 2, hidden_size),
+            torch.nn.Linear(combined_size, hidden_size),
             torch.nn.LayerNorm(hidden_size),
             torch.nn.Dropout(config["model"]["dropout_prob"]),
             torch.nn.GELU(),

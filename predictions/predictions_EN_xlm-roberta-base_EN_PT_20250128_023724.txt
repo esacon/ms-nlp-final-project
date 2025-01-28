@@ -1,0 +1,29 @@
+RU_TEST_00044.txt	Ukrainians	241	250	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00044.txt	Azov Regiment	411	423	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00044.txt	Russian	834	840	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00044.txt	Russia	2261	2266	Innocent	Forgotten	Exploited	Scapegoat	Victim
+CC_TEST_00046.txt	Kalmus	1014	1019	Innocent	Forgotten	Exploited	Scapegoat	Victim
+CC_TEST_00091.txt	the UN	2476	2481	Innocent	Forgotten	Exploited	Scapegoat	Victim
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Innocent	Forgotten	Exploited	Scapegoat	Victim
+CC_TEST_00053.txt	John Kerry	6016	6025	Innocent	Forgotten	Exploited	Scapegoat	Victim
+CC_TEST_00047.txt	G-20 Summit	657	667	Innocent	Forgotten	Exploited	Scapegoat	Victim
+CC_TEST_00047.txt	Biden	1906	1910	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00045.txt	China	127	131	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00045.txt	Russia	137	142	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00045.txt	Iran	2582	2585	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00045.txt	North Korea	2591	2601	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00045.txt	Hamas	2821	2825	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00045.txt	Hezbollah	2828	2836	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00045.txt	the Houthis	2843	2853	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00051.txt	Russia's	89	96	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00051.txt	FSB	300	302	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00051.txt	Putin	807	811	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00051.txt	Putin	1449	1453	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00086.txt	Russia	213	218	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00086.txt	NATO	1270	1273	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00086.txt	Russia	1576	1581	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00092.txt	Russia	835	840	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00092.txt	Europe	2834	2839	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00084.txt	Emmanuel Macron	273	287	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00084.txt	Russia	297	302	Innocent	Forgotten	Exploited	Scapegoat	Victim
+RU_TEST_00084.txt	Ukraine	872	878	Innocent	Forgotten	Exploited	Scapegoat	Victim

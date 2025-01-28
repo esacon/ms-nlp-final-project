@@ -1,7 +1,7 @@
 model:
   name: "xlm-roberta-base"
   learning_rate: 2e-5
-  num_epochs: 3
+  num_epochs: 10
   batch_size: 16
   max_length: 512
   warmup_ratio: 0.1
@@ -35,7 +35,7 @@ training:
   eval_steps: 100
   save_steps: 1000
   logging_steps: 100
-  save_epochs: 2
+  save_epochs: 5
   seed: 42
 
 languages:

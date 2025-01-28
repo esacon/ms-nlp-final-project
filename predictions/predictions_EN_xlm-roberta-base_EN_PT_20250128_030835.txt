@@ -1,0 +1,532 @@
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Deceiver	Conspirator	Corrupt
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Deceiver	Instigator	Conspirator
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Instigator	Deceiver	Incompetent
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Instigator	Deceiver	Corrupt
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Deceiver	Corrupt	Incompetent
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00045.txt	China	127	131	Antagonist	Deceiver	Instigator	Incompetent
+RU_TEST_00045.txt	Russia	137	142	Antagonist	Deceiver	Instigator	Incompetent
+RU_TEST_00045.txt	Iran	2582	2585	Antagonist	Incompetent	Deceiver	Instigator
+RU_TEST_00045.txt	North Korea	2591	2601	Antagonist	Instigator	Foreign Adversary	Deceiver
+RU_TEST_00045.txt	Hamas	2821	2825	Antagonist	Instigator	Incompetent	Deceiver
+RU_TEST_00045.txt	Hezbollah	2828	2836	Antagonist	Deceiver	Conspirator	Corrupt
+RU_TEST_00045.txt	the Houthis	2843	2853	Antagonist	Instigator	Foreign Adversary	Incompetent
+RU_TEST_00051.txt	Russia's	89	96	Antagonist	Deceiver	Instigator	Foreign Adversary
+RU_TEST_00051.txt	FSB	300	302	Antagonist	Incompetent	Deceiver	Instigator
+RU_TEST_00051.txt	Putin	807	811	Antagonist	Incompetent	Deceiver	Instigator
+RU_TEST_00051.txt	Putin	1449	1453	Antagonist	Deceiver	Instigator	Incompetent
+RU_TEST_00086.txt	Russia	213	218	Antagonist	Deceiver	Instigator	Corrupt
+RU_TEST_00086.txt	NATO	1270	1273	Antagonist	Incompetent	Deceiver	Instigator
+RU_TEST_00086.txt	Russia	1576	1581	Antagonist	Deceiver	Corrupt	Incompetent
+RU_TEST_00092.txt	Russia	835	840	Antagonist	Instigator	Foreign Adversary	Conspirator
+RU_TEST_00092.txt	Europe	2834	2839	Antagonist	Instigator	Incompetent	Foreign Adversary
+RU_TEST_00084.txt	Emmanuel Macron	273	287	Antagonist	Instigator	Conspirator	Incompetent
+RU_TEST_00084.txt	Russia	297	302	Antagonist	Instigator	Incompetent	Conspirator
+RU_TEST_00084.txt	Ukraine	872	878	Antagonist	Instigator	Foreign Adversary	Incompetent
+CC_TEST_00050.txt	Bill Gates	420	429	Antagonist	Deceiver	Conspirator	Corrupt
+CC_TEST_00050.txt	Gates	3575	3579	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00050.txt	GOP	3848	3850	Antagonist	Deceiver	Conspirator	Corrupt
+CC_TEST_00050.txt	DOJ	3943	3945	Antagonist	Deceiver	Conspirator	Instigator
+CC_TEST_00050.txt	FBI	3948	3950	Antagonist	Deceiver	Conspirator	Corrupt
+RU_TEST_00085.txt	Zelensky	238	245	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00085.txt	Hunter Biden	735	746	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00085.txt	Poland	2314	2319	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00081.txt	Russia	360	365	Antagonist	Instigator	Deceiver	Conspirator
+RU_TEST_00081.txt	Ukraine	408	414	Antagonist	Deceiver	Conspirator	Corrupt
+RU_TEST_00081.txt	the United States	421	437	Antagonist	Instigator	Deceiver	Foreign Adversary
+RU_TEST_00095.txt	Vladimir Putin	118	131	Antagonist	Deceiver	Conspirator	Corrupt
+RU_TEST_00095.txt	Yevgeny Satanovsky	207	224	Antagonist	Deceiver	Instigator	Conspirator
+RU_TEST_00095.txt	Putin	1895	1899	Antagonist	Deceiver	Conspirator	Corrupt
+RU_TEST_00042.txt	Zelensky	1637	1644	Antagonist	Instigator	Incompetent	Deceiver
+CC_TEST_00097.txt	Southern California Gas Company	104	134	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00057.txt	the West	1876	1883	Antagonist	Instigator	Deceiver	Conspirator
+RU_TEST_00057.txt	US-	3245	3247	Antagonist	Deceiver	Conspirator	Corrupt
+RU_TEST_00057.txt	the West	5686	5693	Antagonist	Instigator	Incompetent	Foreign Adversary
+RU_TEST_00057.txt	Russia	5718	5723	Antagonist	Deceiver	Conspirator	Incompetent
+RU_TEST_00057.txt	Ukraine	7123	7129	Antagonist	Instigator	Conspirator	Deceiver
+RU_TEST_00096.txt	Ukraine	348	354	Antagonist	Instigator	Foreign Adversary	Deceiver
+RU_TEST_00096.txt	Russia	429	434	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00096.txt	the Kremlin	514	524	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00096.txt	Pushilin	2083	2090	Antagonist	Instigator	Deceiver	Incompetent
+RU_TEST_00082.txt	Russia	1687	1692	Protagonist	Guardian	Peacemaker
+RU_TEST_00055.txt	Ukraine	193	199	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00055.txt	Vladimir Putin	391	404	Antagonist	Deceiver	Incompetent	Conspirator
+RU_TEST_00055.txt	Joe Biden	1300	1308	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00055.txt	Russia	3716	3721	Antagonist	Instigator	Deceiver	Foreign Adversary
+RU_TEST_00055.txt	George Bush	4931	4941	Antagonist	Instigator	Foreign Adversary	Incompetent
+CC_TEST_00080.txt	President Joe Biden	395	413	Antagonist	Conspirator	Deceiver	Corrupt
+RU_TEST_00068.txt	Israeli government	927	944	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00068.txt	Israeli administration	1072	1093	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00068.txt	US	1394	1395	Antagonist	Instigator	Deceiver	Conspirator
+EN_CC_200164.txt	World Economic Forum (WEF	81	105	Antagonist	Deceiver	Conspirator	Corrupt
+EN_CC_200164.txt	WEF	520	522	Antagonist	Deceiver	Conspirator	Corrupt
+CC_TEST_00025.txt	Associated Press	205	220	Antagonist	Deceiver	Instigator	Corrupt
+CC_TEST_00025.txt	Quadrivium	1370	1379	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00025.txt	James Murdoch	1397	1409	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00025.txt	the AP	2275	2280	Antagonist	Deceiver	Conspirator	Corrupt
+RU_TEST_00026.txt	Russia	235	240	Antagonist	Instigator	Deceiver	Incompetent
+RU_TEST_00026.txt	Financial Times	2278	2292	Antagonist	Instigator	Incompetent	Foreign Adversary
+RU_TEST_00026.txt	Ukraine	2375	2381	Antagonist	Deceiver	Instigator	Incompetent
+RU_TEST_00030.txt	the EU	2292	2297	Antagonist	Instigator	Deceiver	Conspirator
+CC_TEST_00032.txt	Wall Street Journal	63	81	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00033.txt	The World Economic Forum (WEF	377	405	Antagonist	Deceiver	Conspirator	Corrupt
+CC_TEST_00033.txt	The World Bank	1313	1326	Antagonist	Instigator	Incompetent	Deceiver
+CC_TEST_00033.txt	Donald Trump	2423	2434	Antagonist	Deceiver	Incompetent	Instigator
+RU_TEST_00021.txt	the West	167	174	Antagonist	Instigator	Foreign Adversary	Incompetent
+RU_TEST_00021.txt	NATO	180	183	Antagonist	Deceiver	Conspirator	Incompetent
+RU_TEST_00009.txt	Margarita Simonyan	82	99	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00009.txt	Ksenia Sobchak	176	189	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00009.txt	Kiev	289	292	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00009.txt	Kiev	428	431	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00009.txt	Daria Dugin	699	709	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00009.txt	Alekandr Dugin	816	829	Antagonist	Instigator	Deceiver	Incompetent
+RU_TEST_00009.txt	NATO	914	917	Antagonist	Instigator	Incompetent	Foreign Adversary
+RU_TEST_00009.txt	Washington	920	929	Antagonist	Instigator	Incompetent	Deceiver
+RU_TEST_00009.txt	Giovanni Gentile	1177	1192	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00009.txt	Americans	1260	1268	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00009.txt	Moscow	2995	3000	Antagonist	Instigator	Incompetent	Foreign Adversary
+RU_TEST_00009.txt	Washington	3030	3039	Antagonist	Instigator	Foreign Adversary	Incompetent
+RU_TEST_00009.txt	NATO	3047	3050	Antagonist	Instigator	Foreign Adversary	Incompetent
+EN_UA_DEV_25.txt	Ukraine	261	267	Antagonist	Instigator	Incompetent	Deceiver
+EN_UA_DEV_25.txt	Ethnic Russians	1899	1913	Antagonist	Instigator	Incompetent	Foreign Adversary
+EN_UA_DEV_25.txt	Arsen Avakov	2713	2724	Antagonist	Instigator	Incompetent	Foreign Adversary
+EN_UA_DEV_25.txt	Azov Battalion	3471	3484	Antagonist	Deceiver	Corrupt	Conspirator
+EN_UA_DEV_25.txt	C14	3487	3489	Antagonist	Instigator	Incompetent	Deceiver
+EN_UA_DEV_25.txt	Pravyy sektor	3542	3554	Antagonist	Instigator	Deceiver	Incompetent
+EN_UA_DEV_25.txt	Svoboda	3560	3566	Antagonist	Deceiver	Corrupt	Conspirator
+EN_UA_DEV_25.txt	Kiev	3818	3821	Antagonist	Deceiver	Conspirator	Incompetent
+EN_UA_DEV_25.txt	Stepan Bandera	5537	5550	Antagonist	Deceiver	Instigator	Corrupt
+EN_UA_DEV_25.txt	Ukraine	6088	6094	Antagonist	Incompetent	Instigator	Deceiver
+EN_UA_DEV_25.txt	Moscow	6830	6835	Antagonist	Instigator	Incompetent	Deceiver
+CC_TEST_00023.txt	Germany	1193	1199	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00023.txt	Germany	4779	4785	Antagonist	Deceiver	Instigator	Conspirator
+CC_TEST_00023.txt	China	5204	5208	Antagonist	Deceiver	Conspirator	Corrupt
+CC_TEST_00036.txt	Bill Gates	111	120	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00036.txt	Bill Gates	2899	2908	Antagonist	Deceiver	Instigator	Incompetent
+CC_TEST_00036.txt	Jeff Bezos	2911	2920	Antagonist	Deceiver	Instigator	Incompetent
+CC_TEST_00036.txt	Mark Zuckerberg	2923	2937	Antagonist	Instigator	Deceiver	Incompetent
+CC_TEST_00036.txt	BlackRock	2948	2956	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00008.txt	Brussels	49	56	Antagonist	Instigator	Incompetent	Deceiver
+RU_TEST_00008.txt	George Soros	615	626	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00008.txt	European Commission’s president	666	696	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00008.txt	Ursula von der Leyen	788	807	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00008.txt	Alexander Soros	903	917	Antagonist	Deceiver	Instigator	Incompetent
+RU_TEST_00008.txt	David Miliband	1164	1177	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00008.txt	Radoslaw Sikorski	1249	1265	Antagonist	Instigator	Incompetent	Deceiver
+RU_TEST_00008.txt	Anne Applebaum	1322	1335	Antagonist	Instigator	Incompetent	Deceiver
+RU_TEST_00008.txt	Action for Democracy (AD	1499	1522	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00008.txt	Frans Timmermans	2010	2025	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00008.txt	EC	2051	2052	Antagonist	Deceiver	Conspirator	Incompetent
+RU_TEST_00008.txt	Valdis Dombrovskis	3181	3198	Antagonist	Deceiver	Corrupt	Instigator
+RU_TEST_00008.txt	Margrethe Vestager	3793	3810	Antagonist	Deceiver	Corrupt	Incompetent
+RU_TEST_00008.txt	Josep Borrell Fontelles	4776	4798	Antagonist	Instigator	Deceiver	Conspirator
+RU_TEST_00008.txt	Europe	6418	6423	Antagonist	Instigator	Deceiver	Corrupt
+RU_TEST_00008.txt	Johannes Hahn	6665	6677	Antagonist	Deceiver	Corrupt	Instigator
+RU_TEST_00008.txt	the EU	7166	7171	Antagonist	Deceiver	Instigator	Incompetent
+RU_TEST_00008.txt	Karel Pinxten	7593	7605	Antagonist	Instigator	Incompetent	Corrupt
+RU_TEST_00008.txt	OLAF	8276	8279	Antagonist	Instigator	Deceiver	Incompetent
+CC_TEST_00035.txt	Climate Change Committee (CCC	141	169	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00035.txt	Craig Mackinlay	2221	2235	Antagonist	Deceiver	Incompetent	Conspirator
+EN_UA_DEV_27.txt	Kiev	78	81	Antagonist	Deceiver	Conspirator	Corrupt
+EN_UA_DEV_27.txt	Vladimir Zelensky	568	584	Antagonist	Instigator	Incompetent	Deceiver
+EN_UA_DEV_27.txt	Kiev	2126	2129	Antagonist	Deceiver	Conspirator	Incompetent
+EN_UA_DEV_27.txt	the International Atomic Energy Agency	4133	4170	Antagonist	Instigator	Incompetent	Deceiver
+EN_UA_DEV_27.txt	Rafael Grossi	4263	4275	Antagonist	Instigator	Deceiver	Foreign Adversary
+EN_UA_DEV_27.txt	United States	5897	5909	Antagonist	Deceiver	Instigator	Conspirator
+EN_UA_DEV_27.txt	NATO	5919	5922	Antagonist	Instigator	Deceiver	Incompetent
+RU_TEST_00037.txt	The European Union	62	79	Antagonist	Conspirator	Corrupt	Deceiver
+RU_TEST_00037.txt	Brussels	812	819	Antagonist	Instigator	Incompetent	Foreign Adversary
+RU_TEST_00037.txt	Russia	1127	1132	Antagonist	Instigator	Deceiver	Conspirator
+RU_TEST_00037.txt	Putin	1137	1141	Antagonist	Instigator	Deceiver	Incompetent
+RU_TEST_00037.txt	The European Commission	2614	2636	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00012.txt	NATO	207	210	Antagonist	Instigator	Deceiver	Incompetent
+RU_TEST_00012.txt	European politicians	428	447	Antagonist	Instigator	Deceiver	Incompetent
+RU_TEST_00012.txt	British and German media	792	815	Antagonist	Instigator	Incompetent	Deceiver
+RU_TEST_00012.txt	NATO	1786	1789	Antagonist	Instigator	Incompetent	Deceiver
+RU_TEST_00012.txt	Russia	2060	2065	Antagonist	Instigator	Incompetent	Deceiver
+RU_TEST_00012.txt	Europe	3094	3099	Antagonist	Deceiver	Incompetent	Corrupt
+RU_TEST_00012.txt	the US	3287	3292	Antagonist	Deceiver	Instigator	Corrupt
+RU_TEST_00012.txt	von der Leyen	4166	4178	Antagonist	Instigator	Deceiver	Incompetent
+RU_TEST_00012.txt	EU Commission	4188	4200	Antagonist	Instigator	Deceiver	Corrupt
+RU_TEST_00012.txt	Finland	4969	4975	Antagonist	Instigator	Foreign Adversary	Incompetent
+RU_TEST_00012.txt	Sweden	4981	4986	Antagonist	Instigator	Foreign Adversary	Deceiver
+CC_TEST_00005.txt	CNN	86	88	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00039.txt	Bill Gates	487	496	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00039.txt	Yale Carbon Containment (CC) Lab	2146	2177	Antagonist	Instigator	Incompetent	Deceiver
+RU_TEST_00007.txt	RUSSIA	122	127	Antagonist	Deceiver	Corrupt	Instigator
+RU_TEST_00007.txt	Moscow	546	551	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00007.txt	Vladimir Putin	741	754	Antagonist	Instigator	Incompetent	Deceiver
+RU_TEST_00007.txt	Vitaliy Vertash	1038	1052	Antagonist	Deceiver	Instigator	Corrupt
+RU_TEST_00007.txt	Maria Lvova Belova	1396	1413	Antagonist	Instigator	Deceiver	Incompetent
+RU_TEST_00007.txt	Ukrainians	2609	2618	Antagonist	Instigator	Incompetent	Foreign Adversary
+RU_TEST_00013.txt	South Korea	220	230	Antagonist	Deceiver	Instigator	Conspirator
+RU_TEST_00013.txt	Japan	233	237	Antagonist	Deceiver	Instigator	Incompetent
+RU_TEST_00013.txt	Australia	240	248	Antagonist	Conspirator	Deceiver	Incompetent
+RU_TEST_00013.txt	New Zealand	254	264	Antagonist	Deceiver	Conspirator	Corrupt
+RU_TEST_00013.txt	the West	618	625	Antagonist	Instigator	Deceiver	Incompetent
+RU_TEST_00013.txt	Kyiv	1011	1014	Antagonist	Deceiver	Instigator	Incompetent
+RU_TEST_00013.txt	America	1095	1101	Antagonist	Instigator	Conspirator	Deceiver
+RU_TEST_00011.txt	Ukraine	335	341	Antagonist	Instigator	Deceiver	Incompetent
+RU_TEST_00011.txt	Kremlin	4305	4311	Antagonist	Instigator	Deceiver	Corrupt
+RU_TEST_00014.txt	Kiev	4027	4030	Antagonist	Conspirator	Deceiver	Incompetent
+RU_TEST_00014.txt	Russia	4271	4276	Antagonist	Instigator	Foreign Adversary	Incompetent
+RU_TEST_00014.txt	the US	4614	4619	Antagonist	Instigator	Foreign Adversary	Incompetent
+RU_TEST_00014.txt	Kiev	4744	4747	Antagonist	Instigator	Foreign Adversary	Incompetent
+RU_TEST_00014.txt	China	5816	5820	Antagonist	Deceiver	Conspirator	Instigator
+RU_TEST_00014.txt	West	6165	6168	Antagonist	Deceiver	Conspirator	Incompetent
+RU_TEST_00014.txt	NATO	6295	6298	Antagonist	Deceiver	Conspirator	Incompetent
+RU_TEST_00014.txt	the EU	6304	6309	Antagonist	Instigator	Foreign Adversary	Incompetent
+RU_TEST_00014.txt	The United States	6426	6442	Antagonist	Instigator	Foreign Adversary	Incompetent
+RU_TEST_00028.txt	Washington	588	597	Antagonist	Instigator	Incompetent	Deceiver
+RU_TEST_00028.txt	Republicans	1471	1481	Antagonist	Instigator	Incompetent	Deceiver
+RU_TEST_00028.txt	Hamas	1505	1509	Antagonist	Deceiver	Instigator	Corrupt
+RU_TEST_00028.txt	Putin	2483	2487	Antagonist	Deceiver	Instigator	Incompetent
+CC_TEST_00017.txt	CNN	118	120	Antagonist	Deceiver	Corrupt	Incompetent
+CC_TEST_00017.txt	BBC	126	128	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00017.txt	WWA	3526	3528	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00015.txt	Russia	165	170	Antagonist	Instigator	Foreign Adversary	Incompetent
+RU_TEST_00015.txt	Ukraine	1077	1083	Antagonist	Instigator	Foreign Adversary	Incompetent
+CC_TEST_00000.txt	BBC	296	298	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00000.txt	Guardian	308	315	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00000.txt	RCP8.5	1071	1076	Antagonist	Deceiver	Conspirator	Corrupt
+CC_TEST_00000.txt	Michael Bloomberg	1918	1934	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00000.txt	Tom Steyer	2358	2367	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00000.txt	Hank Paulson	2402	2413	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00002.txt	Ukraine	781	787	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00002.txt	Putin	1354	1358	Antagonist	Deceiver	Conspirator	Corrupt
+RU_TEST_00002.txt	the Pentagon	2288	2299	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00002.txt	The U.S	2564	2570	Antagonist	Instigator	Incompetent	Foreign Adversary
+RU_TEST_00016.txt	Sean Penn	97	105	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00016.txt	Aaron Kaufman	901	913	Antagonist	Deceiver	Corrupt	Incompetent
+RU_TEST_00016.txt	the US	1837	1842	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00016.txt	NATO	1848	1851	Antagonist	Conspirator	Deceiver	Instigator
+CC_TEST_00099.txt	The UN	1110	1115	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00099.txt	WEF	1118	1120	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00099.txt	EU	1126	1127	Antagonist	Deceiver	Corrupt	Conspirator
+EN_UA_300042.txt	Victoria Nuland	112	126	Antagonist	Instigator	Incompetent	Foreign Adversary
+EN_UA_300042.txt	Russians	2074	2081	Antagonist	Deceiver	Instigator	Incompetent
+CC_TEST_00070.txt	Liao	1303	1306	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00059.txt	Nature Communications	437	457	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00073.txt	Russian Federation	331	348	Antagonist	Conspirator	Deceiver	Instigator
+RU_TEST_00073.txt	Vladimir Putin	396	409	Antagonist	Deceiver	Instigator	Conspirator
+RU_TEST_00073.txt	Ukraine	1168	1174	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00073.txt	West's	1186	1191	Antagonist	Instigator	Foreign Adversary	Incompetent
+RU_TEST_00067.txt	Pavel Pchelnikov	142	157	Antagonist	Deceiver	Corrupt	Incompetent
+RU_TEST_00067.txt	Putin	2601	2605	Antagonist	Instigator	Deceiver	Incompetent
+RU_TEST_00098.txt	the United States	421	437	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00049.txt	Just Stop Oil	483	495	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00049.txt	King Charles	860	871	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00049.txt	Just Stop Oil	2067	2079	Antagonist	Corrupt	Deceiver	Conspirator
+CC_TEST_00049.txt	J Paul Getty’s granddaughter	2231	2258	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00076.txt	Zelensky	26	33	Antagonist	Deceiver	Conspirator	Corrupt
+RU_TEST_00076.txt	U.S.-	2801	2805	Antagonist	Deceiver	Incompetent	Corrupt
+RU_TEST_00074.txt	US	2229	2230	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00074.txt	ICC	2246	2248	Antagonist	Deceiver	Corrupt	Conspirator
+CC_TEST_00089.txt	China	263	267	Antagonist	Deceiver	Conspirator	Incompetent
+CC_TEST_00063.txt	Climate Action	787	800	Antagonist	Deceiver	Corrupt	Conspirator
+RU_TEST_00061.txt	Russia	704	709	Antagonist	Instigator	Foreign Adversary	Incompetent
+RU_TEST_00061.txt	the United States	1677	1693	Antagonist	Instigator	Foreign Adversary	Deceiver
+RU_TEST_00061.txt	the United States	1789	1805	Antagonist	Deceiver	Instigator	Conspirator
+RU_TEST_00061.txt	Britain	1811	1817	Antagonist	Instigator	Deceiver	Incompetent
+RU_TEST_00061.txt	the collective West	2238	2256	Antagonist	Deceiver	Conspirator	Corrupt
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Deceiver	Corrupt	Foreign Adversary
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Deceiver	Foreign Adversary	Instigator
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Deceiver	Corrupt	Foreign Adversary
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Deceiver	Foreign Adversary	Corrupt
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Deceiver	Corrupt	Instigator
+PT_URW_TEST_471.txt	Moscovo	656	662	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_471.txt	Canadá	683	688	Innocent	Victim
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Innocent	Victim
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Innocent	Victim
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Innocent	Victim
+PT_CC_TEST_523.txt	Clube de Roma	1782	1794	Innocent	Victim
+PT_URW_TEST_510.txt	Ucrânia	432	438	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_510.txt	Rússia	1219	1224	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_510.txt	Banco Central	1885	1897	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_504.txt	Ocidente	622	629	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_504.txt	Putin	1966	1970	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_464.txt	Rússia	729	734	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_464.txt	Vladimir Zelensky	783	799	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_470.txt	Ocidente	155	162	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_470.txt	Rússia	182	187	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_CC_TEST_443.txt	Greta	2549	2553	Antagonist	Deceiver	Foreign Adversary	Corrupt
+PT_CC_TEST_441.txt	União Europeia	60	73	Innocent	Victim
+PT_CC_TEST_441.txt	Comissão Europeia	565	581	Antagonist	Instigator	Foreign Adversary	Deceiver
+PT_CC_TEST_441.txt	UE	2365	2366	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_CC_TEST_455.txt	António Guterres	499	514	Innocent	Victim
+PT_URW_TEST_466.txt	Ucrânia	430	436	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_466.txt	Ucrânia	562	568	Innocent	Victim
+PT_URW_TEST_472.txt	Vladimir Zelensky	1065	1081	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_472.txt	Vladimir Putin	2743	2756	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_472.txt	Ucrânia	2802	2808	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_472.txt	Rússia	2876	2881	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_499.txt	EUA	240	242	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_499.txt	EUA	332	334	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_499.txt	Washington	707	716	Innocent	Victim
+PT_URW_TEST_499.txt	Kiev	917	920	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_499.txt	Estados Unidos	1052	1065	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_499.txt	Federação Russa	1435	1449	Innocent	Victim
+PT_URW_TEST_499.txt	Ucrânia	1486	1492	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_506.txt	Ucrânia	106	112	Antagonist	Foreign Adversary	Deceiver	Corrupt
+PT_URW_TEST_506.txt	Governo ucraniano	383	399	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_507.txt	Ucrânia	185	191	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_507.txt	Moscovo	281	287	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_507.txt	Kiev	668	671	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_498.txt	Vladimir Putin	100	113	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_498.txt	Moscovo	479	485	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_498.txt	Kyiv	541	544	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_498.txt	Putin	803	807	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_498.txt	Putin	988	992	Innocent	Victim
+PT_URW_TEST_498.txt	Rússia	1538	1543	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_498.txt	Vladimir Putin	1915	1928	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_498.txt	Ucrânia	1968	1974	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_498.txt	Rússia	1994	1999	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_473.txt	Rússia	2017	2022	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_467.txt	NATO	2172	2175	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_467.txt	Estados Unidos	2182	2195	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_CC_TEST_454.txt	António Guterres	122	137	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_CC_TEST_454.txt	Guterres	1659	1666	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_CC_TEST_444.txt	Volodymyr Zelensky	288	305	Innocent	Victim
+PT_CC_TEST_444.txt	Rússia	1216	1221	Innocent	Victim
+PT_URW_TEST_477.txt	Vladimir Putin	322	335	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_477.txt	Rússia	892	897	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_477.txt	Moscovo	1156	1162	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_477.txt	Vladimir Putin	2397	2410	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_477.txt	Ucrânia	2457	2463	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_477.txt	Rússia	2552	2557	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_488.txt	Rússia	208	213	Innocent	Victim
+PT_URW_TEST_488.txt	Vladimir Putin	1953	1966	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_488.txt	Ucrânia	2012	2018	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_488.txt	Rússia	2086	2091	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_503.txt	Kremlin	220	226	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_503.txt	Pequim	505	510	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_503.txt	Ucrânia	836	842	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_503.txt	China	1031	1035	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_503.txt	Jen Psaki	1232	1240	Protagonist	Guardian	Peacemaker
+PT_CC_TEST_525.txt	Al Gore	648	654	Innocent	Victim
+PT_URW_TEST_502.txt	Rússia	110	115	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_502.txt	Ucrânia	645	651	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_502.txt	Rússia	1391	1396	Innocent	Victim
+PT_URW_TEST_502.txt	Rússia	1592	1597	Innocent	Victim
+PT_URW_TEST_502.txt	Forças Armadas da Ucrânia	1768	1792	Antagonist	Foreign Adversary	Deceiver	Corrupt
+PT_URW_TEST_502.txt	Ucrânia	1825	1831	Antagonist	Foreign Adversary	Deceiver	Corrupt
+PT_URW_TEST_502.txt	Federação da Rússia	2226	2244	Innocent	Victim
+PT_URW_TEST_502.txt	Kyiv	2265	2268	Protagonist	Guardian
+PT_URW_TEST_502.txt	Ucrânia	2488	2494	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_502.txt	Ucrânia	2602	2608	Innocent	Victim
+PT_URW_TEST_502.txt	Ocidente	2780	2787	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_502.txt	Rússia	2827	2832	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_489.txt	Rússia	246	251	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_489.txt	Vladimir Putin	1298	1311	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_489.txt	Ucrânia	1369	1375	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_489.txt	Rússia	1395	1400	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_476.txt	Kiev	833	836	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_476.txt	Rússia	1678	1683	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_476.txt	Ucrânia	2140	2146	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_476.txt	Ocidente	2291	2298	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_462.txt	Kiev	188	191	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_462.txt	Vassily Nebenzia	525	540	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_462.txt	Ucrânia	631	637	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_462.txt	Kiev	973	976	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_462.txt	Kiev	1157	1160	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_462.txt	Ocidente	2797	2804	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_CC_TEST_451.txt	Parlamento Europeu	22	39	Innocent	Victim
+PT_CC_TEST_451.txt	Comissão Europeia	77	93	Innocent	Victim
+PT_CC_TEST_451.txt	Parlamento Europeu	268	285	Innocent	Victim
+PT_CC_TEST_451.txt	Europa	916	921	Innocent	Victim
+PT_CC_TEST_451.txt	Parlamento Europeu	2428	2445	Innocent	Victim
+PT_CC_TEST_451.txt	Comissão	2452	2459	Innocent	Victim
+PT_CC_TEST_445.txt	Jair Bolsonaro	158	171	Protagonist	Guardian	Peacemaker
+PT_CC_TEST_453.txt	Exxon Mobil	757	767	Innocent	Victim
+PT_URW_TEST_474.txt	União Europeia	497	510	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_474.txt	Ocidente	624	631	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_474.txt	Rússia	1543	1548	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_474.txt	Moscovo	1594	1600	Innocent	Victim
+PT_URW_TEST_474.txt	Ocidente	2014	2021	Innocent	Victim
+PT_URW_TEST_474.txt	Estados Unidos	2425	2438	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_474.txt	União Europeia	2463	2476	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_474.txt	Washington	2514	2523	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_474.txt	Bruxelas	2527	2534	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_474.txt	Kiev	2952	2955	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_500.txt	Volodymyr Zelensky	1305	1322	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_500.txt	Kiev	1380	1383	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_500.txt	Zelensky	1535	1542	Innocent	Victim
+PT_URW_TEST_500.txt	Zelensky	1729	1736	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_500.txt	Ucrânia	1998	2004	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_500.txt	Moscovo	2093	2099	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_500.txt	Kiev	2272	2275	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_CC_TEST_533.txt	Obama	1205	1209	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_CC_TEST_532.txt	Michael Gove	2418	2429	Innocent	Victim
+PT_CC_TEST_526.txt	Bjorn Lomborg	895	907	Antagonist	Deceiver	Corrupt	Foreign Adversary
+PT_CC_TEST_526.txt	Times	2239	2243	Innocent	Victim
+PT_CC_TEST_526.txt	Times	2372	2376	Innocent	Victim
+PT_URW_TEST_501.txt	Estados Unidos	139	152	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_501.txt	Washington	307	316	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_501.txt	Rússia	363	368	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_501.txt	Joe Biden	1040	1048	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_501.txt	Ocidente	1796	1803	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_501.txt	Estados Unidos	1850	1863	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_501.txt	Donetsk	2313	2319	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_501.txt	Lugansk	2323	2329	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_501.txt	Kyiv	2355	2358	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_501.txt	Ocidente	2382	2389	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_501.txt	Rússia	2467	2472	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_501.txt	Vladimir Putin	3041	3054	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_501.txt	Ucrânia	3112	3118	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_501.txt	Rússia	3138	3143	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_475.txt	Kiev	269	272	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_478.txt	União Europeia	174	187	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_478.txt	Rússia	1334	1339	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_478.txt	Moscovo	1385	1391	Innocent	Victim
+PT_URW_TEST_478.txt	Ocidente	1809	1816	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_478.txt	Estados Unidos	2010	2023	Innocent	Victim
+PT_URW_TEST_478.txt	União Europeia	2048	2061	Innocent	Victim
+PT_URW_TEST_478.txt	Washington	2486	2495	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_478.txt	Bruxelas	2499	2506	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_478.txt	Kiev	2881	2884	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_493.txt	Kremlin	579	585	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_493.txt	Governos ocidentais	1195	1213	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_493.txt	Rússia	1326	1331	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_493.txt	Ucrânia	1846	1852	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_493.txt	Vladimir Putin	2447	2460	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_493.txt	Kremlin	2688	2694	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_486.txt	Leste da Europa	770	784	Innocent	Victim
+PT_URW_TEST_486.txt	EUA	838	840	Innocent	Victim
+PT_URW_TEST_486.txt	NATO	845	848	Innocent	Victim
+PT_URW_TEST_486.txt	União Europeia	854	867	Innocent	Victim
+PT_URW_TEST_486.txt	Federação Russa	2416	2430	Innocent	Victim
+PT_URW_TEST_486.txt	República Popular da China	2436	2461	Innocent	Victim
+PT_URW_TEST_486.txt	EUA	3173	3175	Innocent	Victim
+PT_URW_TEST_486.txt	Japão	3213	3217	Antagonist	Foreign Adversary	Deceiver	Corrupt
+PT_URW_TEST_486.txt	Austrália	3223	3231	Innocent	Victim
+PT_URW_TEST_492.txt	Ocidente	684	691	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_492.txt	Putin	941	945	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_492.txt	Vladimir Putin	1302	1315	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_492.txt	Ucrânia	1355	1361	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_492.txt	Rússia	1381	1386	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_479.txt	Vladimir Putin	3002	3015	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_479.txt	Ucrânia	3062	3068	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_479.txt	Rússia	3157	3162	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_484.txt	Rússia	363	368	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_484.txt	Estados Unidos	483	496	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_484.txt	Kremlin	1580	1586	Innocent	Victim
+PT_URW_TEST_490.txt	Rússia	295	300	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_490.txt	Kiev	359	362	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_490.txt	Igor Konashenkov	621	636	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_490.txt	Federação Russa	901	915	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_490.txt	Ocidente	947	954	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_490.txt	Vladimir Putin	1399	1412	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_490.txt	Ucrânia	1458	1464	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_490.txt	Rússia	1532	1537	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_CC_TEST_514.txt	Universidade de Coimbra	535	557	Innocent	Victim
+PT_URW_TEST_491.txt	Ocidente	128	135	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_491.txt	Putin	443	447	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_491.txt	Ucrânia	461	467	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_491.txt	Moscovo	486	492	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_491.txt	Ucrânia	1658	1664	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_485.txt	Ocidente	259	266	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_485.txt	União Soviética	730	744	Innocent	Victim
+PT_URW_TEST_485.txt	Alemanha	760	767	Innocent	Victim
+PT_URW_TEST_485.txt	Rússia	935	940	Innocent	Victim
+PT_URW_TEST_485.txt	União Soviética	1832	1846	Innocent	Victim
+PT_URW_TEST_485.txt	China	2845	2849	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_CC_TEST_449.txt	Climáximo	151	159	Innocent	Victim
+PT_CC_TEST_449.txt	Camargo	636	642	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_CC_TEST_449.txt	João Camargo	937	948	Antagonist	Deceiver	Foreign Adversary	Corrupt
+PT_CC_TEST_449.txt	Joana Louçã	1371	1381	Antagonist	Deceiver	Corrupt	Foreign Adversary
+PT_URW_TEST_481.txt	Rússia	292	297	Innocent	Victim
+PT_URW_TEST_481.txt	Volodymyr Zelensky	959	976	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_495.txt	UE	1458	1459	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_495.txt	Ucrânia	1506	1512	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_495.txt	Rússia	2250	2255	Innocent	Victim
+PT_URW_TEST_495.txt	Moscovo	2607	2613	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_494.txt	Estados Unidos	202	215	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_494.txt	Ocidente	316	323	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_494.txt	Estados Unidos	542	555	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_494.txt	Moscovo	760	766	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_494.txt	Rússia	958	963	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_494.txt	Moscovo	1148	1154	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_494.txt	Pequim	1158	1163	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_494.txt	EUA	1205	1207	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_494.txt	Rússia	1270	1275	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_494.txt	Organização do Tratado do Atlântico Norte	1313	1353	Innocent	Victim
+PT_URW_TEST_494.txt	Shoigu	2150	2155	Innocent	Victim
+PT_URW_TEST_480.txt	Rússia	1313	1318	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_480.txt	Putin	2600	2604	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_480.txt	Ucrânia	2649	2655	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_469.txt	RTP	1970	1972	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_469.txt	Público	1975	1981	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_469.txt	Expresso	1984	1991	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_469.txt	Observador	1995	2004	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_469.txt	União Europeia	3055	3068	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_496.txt	Ocidente	194	201	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_496.txt	Estados Unidos	365	378	Innocent	Victim
+PT_URW_TEST_496.txt	Reino Unido	381	391	Innocent	Victim
+PT_URW_TEST_496.txt	Canadá	394	399	Innocent	Victim
+PT_URW_TEST_496.txt	Alemanha	402	409	Innocent	Victim
+PT_URW_TEST_496.txt	França	412	417	Innocent	Victim
+PT_URW_TEST_496.txt	Polónia	420	426	Innocent	Victim
+PT_URW_TEST_496.txt	Áustria	429	435	Innocent	Victim
+PT_URW_TEST_496.txt	Austrália	438	446	Antagonist	Instigator	Foreign Adversary	Incompetent
+PT_URW_TEST_496.txt	Bélgica	449	455	Protagonist	Peacemaker	Guardian
+PT_URW_TEST_496.txt	Bulgária	458	465	Innocent	Victim
+PT_URW_TEST_496.txt	Grécia	468	473	Innocent	Victim
+PT_URW_TEST_496.txt	Dinamarca	476	484	Innocent	Victim
+PT_URW_TEST_496.txt	Espanha	487	493	Innocent	Victim
+PT_URW_TEST_496.txt	Luxemburgo	496	505	Innocent	Victim
+PT_URW_TEST_496.txt	Países Baixos	508	520	Innocent	Victim
+PT_URW_TEST_496.txt	Noruega	523	529	Innocent	Victim
+PT_URW_TEST_496.txt	Portugal	532	539	Innocent	Victim
+PT_URW_TEST_496.txt	Roménia	542	548	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_496.txt	Macedónia do Norte	551	568	Innocent	Victim
+PT_URW_TEST_496.txt	Eslováquia	571	580	Innocent	Victim
+PT_URW_TEST_496.txt	Eslovénia	583	591	Innocent	Victim
+PT_URW_TEST_496.txt	Turquia	594	600	Innocent	Victim
+PT_URW_TEST_496.txt	Finlândia	603	611	Innocent	Victim
+PT_URW_TEST_496.txt	República Checa	614	628	Innocent	Victim
+PT_URW_TEST_496.txt	Suécia	631	636	Antagonist	Instigator	Foreign Adversary	Incompetent
+PT_URW_TEST_496.txt	Donbass	813	819	Innocent	Victim
+PT_URW_TEST_496.txt	Ocidente	1052	1059	Innocent	Victim
+PT_URW_TEST_496.txt	Vladimir Putin	2119	2132	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_496.txt	Ucrânia	2190	2196	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_496.txt	Rússia	2216	2221	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_482.txt	Moscovo	698	704	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_482.txt	Rússia	1121	1126	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_482.txt	Kremlin	1890	1896	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_482.txt	Dmitri Peskov	1899	1911	Protagonist	Peacemaker	Guardian
+PT_URW_TEST_509.txt	Ucrânia	192	198	Innocent	Victim
+PT_URW_TEST_509.txt	Andrei Turchak	430	443	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_509.txt	Rússia	572	577	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_509.txt	Rússia	1796	1801	Protagonist	Guardian	Peacemaker
+PT_CC_TEST_512.txt	Climáximo»	310	319	Antagonist	Foreign Adversary	Deceiver	Corrupt
+PT_CC_TEST_512.txt	RTP	501	503	Innocent	Victim
+PT_CC_TEST_513.txt	António Guterres	992	1007	Innocent	Victim
+PT_URW_TEST_508.txt	Ucrânia	175	181	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_508.txt	Sergei Lavov	432	443	Protagonist	Guardian	Peacemaker
+PT_URW_TEST_508.txt	Estados Unidos	1151	1164	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_508.txt	NATO	1186	1189	Antagonist	Foreign Adversary	Instigator	Incompetent
+PT_URW_TEST_508.txt	Rússia	1304	1309	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_508.txt	Ocidente	1430	1437	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_508.txt	Zelensky	1466	1473	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_508.txt	EUA	1568	1570	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_508.txt	NATO	1594	1597	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_508.txt	ocidente	1920	1927	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_508.txt	Dmytro Kuleba	2268	2280	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_508.txt	Rússia	2397	2402	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_483.txt	NATO	244	247	Antagonist	Deceiver	Foreign Adversary	Instigator
+PT_URW_TEST_483.txt	UE	1551	1552	Antagonist	Foreign Adversary	Deceiver	Instigator
+PT_URW_TEST_497.txt	Rússia	1457	1462	Innocent	Victim
+PT_URW_TEST_468.txt	NATO	260	263	Antagonist	Foreign Adversary	Instigator	Deceiver
+PT_URW_TEST_440.txt	Andrii Sybiha	1605	1617	Protagonist	Guardian	Peacemaker
+PT_CC_TEST_438.txt	Google	215	220	Innocent	Victim
+PT_CC_TEST_438.txt	Google	880	885	Antagonist	Foreign Adversary	Deceiver	Corrupt
