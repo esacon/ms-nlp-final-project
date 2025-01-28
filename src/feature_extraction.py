@@ -1,8 +1,9 @@
 import torch
 from src.utils import get_device, get_logger
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Any
 import logging
 from src.preprocessing import Preprocessor
+import difflib
 
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
@@ -44,155 +45,151 @@ class FeatureExtractor:
         return self.preprocessor.preprocess_text(text, **self.preprocessing_config)
 
     def _adjust_offsets(self, original_text: str, preprocessed_text: str, start_offset: int, end_offset: int) -> Tuple[int, int]:
-        """Adjust entity offsets after preprocessing."""
+        """
+        Adjust entity offsets after preprocessing with enhanced robustness.
+        Uses multiple strategies to find the entity in the preprocessed text.
+        """
         original_entity = original_text[start_offset:end_offset]
+        preprocessed_entity = self._preprocess_text(original_entity)
 
-        # Find the entity in the preprocessed text
+        # Strategy 1: Direct match of original entity
         try:
             new_start = preprocessed_text.index(original_entity)
             new_end = new_start + len(original_entity)
             return new_start, new_end
         except ValueError:
-            # If exact match fails, try with preprocessed entity
-            preprocessed_entity = self._preprocess_text(original_entity)
-            try:
-                new_start = preprocessed_text.index(preprocessed_entity)
-                new_end = new_start + len(preprocessed_entity)
-                return new_start, new_end
-            except ValueError:
-                # If still not found, return original offsets
-                self.logger.warning(
-                    f"Could not adjust offsets for entity: {original_entity}")
-                return start_offset, end_offset
+            pass
 
-    def extract_features(self, text: str, start_offset: int, end_offset: int) -> Dict:
-        """
-        Extract features for a single entity mention, ensuring correct tokenization.
-        """
+        # Strategy 2: Match preprocessed entity
         try:
-            if self.tokenizer is None or self.model is None:
-                raise ValueError(
-                    "Tokenizer and model must be set before feature extraction")
+            new_start = preprocessed_text.index(preprocessed_entity)
+            new_end = new_start + len(preprocessed_entity)
+            return new_start, new_end
+        except ValueError:
+            pass
 
-            # Preprocess the text
-            preprocessed_text = self._preprocess_text(text)
+        # Strategy 3: Fuzzy matching for similar substrings
+        # Get the best matching substring
+        matcher = difflib.SequenceMatcher(None, preprocessed_entity, preprocessed_text)
+        match = matcher.find_longest_match(0, len(preprocessed_entity), 0, len(preprocessed_text))
+        
+        if match.size > len(preprocessed_entity) * 0.8:  # At least 80% match
+            new_start = match.b
+            new_end = match.b + match.size
+            self.logger.debug(
+                f"Found fuzzy match for entity: '{original_entity}' -> "
+                f"'{preprocessed_text[new_start:new_end]}' (similarity: {match.size/len(preprocessed_entity):.2f})"
+            )
+            return new_start, new_end
 
-            # Adjust offsets after preprocessing
-            new_start, new_end = self._adjust_offsets(
-                text, preprocessed_text, start_offset, end_offset)
+        # Strategy 4: Find closest word boundaries
+        words = preprocessed_text.split()
+        original_words = original_entity.split()
+        
+        for i, word in enumerate(words):
+            if any(orig_word in word for orig_word in original_words):
+                # Found a partial match, try to expand
+                start_idx = sum(len(w) + 1 for w in words[:i])
+                end_idx = start_idx + len(word)
+                
+                # Check surrounding words for better context
+                context_start = max(0, i - 1)
+                context_end = min(len(words), i + 2)
+                context = " ".join(words[context_start:context_end])
+                
+                self.logger.debug(
+                    f"Found partial match for entity: '{original_entity}' -> "
+                    f"'{context}' at position {start_idx}:{end_idx}"
+                )
+                return start_idx, end_idx
 
-            mention = preprocessed_text[new_start:new_end]
-            context_start = max(0, new_start - self.context_window)
-            context_end = min(len(preprocessed_text),
-                              new_end + self.context_window)
-            left_context = preprocessed_text[context_start:new_start]
-            right_context = preprocessed_text[new_end:context_end]
-            marked_text = f"{left_context}[ENT]{mention}[/ENT]{right_context}"
+        # If all strategies fail, log warning and return original offsets
+        self.logger.warning(
+            f"Could not find entity '{original_entity}' in preprocessed text. "
+            f"Using original offsets: {start_offset}:{end_offset}"
+        )
+        return start_offset, end_offset
 
-            # Tokenize and find entity markers
-            tokens = self.tokenizer.tokenize(marked_text)
-            start_marker_idx = end_marker_idx = -1
-            for i, token in enumerate(tokens):
-                if token == '[ENT]':
-                    start_marker_idx = i
-                elif token == '[/ENT]':
-                    end_marker_idx = i
+    def _find_entity_boundaries(self, text: str, entity_text: str, start_offset: int, end_offset: int) -> Tuple[int, int]:
+        """Find the correct entity boundaries in the tokenized text."""
+        # Normalize text for comparison
+        normalized_entity = entity_text.lower().strip()
+        normalized_text = text.lower()
+        
+        # First try exact match around the provided offsets
+        context_window = 100  # Look within 100 chars before and after
+        start_idx = max(0, start_offset - context_window)
+        end_idx = min(len(text), end_offset + context_window)
+        search_text = normalized_text[start_idx:end_idx]
+        
+        # Try to find the entity in the search window
+        entity_idx = search_text.find(normalized_entity)
+        if entity_idx != -1:
+            # Adjust offsets back to original text position
+            start_offset = start_idx + entity_idx
+            end_offset = start_offset + len(normalized_entity)
+        
+        return start_offset, end_offset
+
+    def extract_features(self, text: str, entity_text: str, start_offset: int, end_offset: int) -> Dict[str, Any]:
+        """Extract features for a single entity mention."""
+        # Find correct entity boundaries
+        start_offset, end_offset = self._find_entity_boundaries(text, entity_text, start_offset, end_offset)
+        
+        # Add entity markers
+        marked_text = (
+            text[:start_offset] + 
+            "[ENT]" + 
+            text[start_offset:end_offset] + 
+            "[/ENT]" + 
+            text[end_offset:]
+        )
+        
+        # Tokenize with truncation
+        encoding = self.tokenizer(
+            marked_text,
+            return_tensors="pt",
+            max_length=self.max_length,
+            truncation=True,
+            padding=True,
+        )
+        
+        # Find entity positions in tokenized text
+        input_ids = encoding["input_ids"][0]
+        tokens = self.tokenizer.convert_ids_to_tokens(input_ids)
+        
+        try:
+            start_token = tokens.index("[ENT]")
+            end_token = tokens.index("[/ENT]")
+        except ValueError:
+            # If markers not found, try to find the entity text directly
+            entity_tokens = self.tokenizer.tokenize(entity_text)
+            for i in range(len(tokens) - len(entity_tokens) + 1):
+                if tokens[i:i + len(entity_tokens)] == entity_tokens:
+                    start_token = i
+                    end_token = i + len(entity_tokens)
                     break
-
-            # Fallback: Check with space-aware markers if not found
-            if start_marker_idx == -1 or end_marker_idx == -1:
-                marked_text = f"{left_context} [ENT] {mention} [/ENT] {right_context}"
-                tokens = self.tokenizer.tokenize(marked_text)
-                for i, token in enumerate(tokens):
-                    if token == '[ENT]':
-                        start_marker_idx = i
-                    elif token == '[/ENT]':
-                        end_marker_idx = i
-                        break
-
-            if start_marker_idx == -1 or end_marker_idx == -1:
-                self.logger.error("Entity markers not found in tokens")
-                raise ValueError("Entity markers not tokenized properly")
-
-            # Calculate available length (accounting for [CLS] and [SEP])
-            available_length = self.max_length - 2
-            if len(tokens) > available_length:
-                # Center truncation around the entity
-                center = (start_marker_idx + end_marker_idx) // 2
-                half_window = available_length // 2
-                start_idx = max(0, center - half_window)
-                end_idx = min(len(tokens), center + half_window)
-                # Adjust if near boundaries
-                if end_idx - start_idx < available_length:
-                    if start_idx == 0:
-                        end_idx = min(len(tokens), available_length)
-                    else:
-                        start_idx = max(0, len(tokens) - available_length)
-                truncated_tokens = tokens[start_idx:end_idx]
-                # Adjust marker positions after truncation
-                start_marker_idx = end_marker_idx = -1
-                for i, token in enumerate(truncated_tokens):
-                    if token == '[ENT]':
-                        start_marker_idx = i
-                    elif token == '[/ENT]':
-                        end_marker_idx = i
-                        break
-                if start_marker_idx == -1 or end_marker_idx == -1:
-                    raise ValueError("Markers lost during truncation")
             else:
-                truncated_tokens = tokens
-
-            # Convert tokens to input IDs with special tokens
-            input_tokens = [self.tokenizer.cls_token] + \
-                truncated_tokens + [self.tokenizer.sep_token]
-            input_ids = self.tokenizer.convert_tokens_to_ids(input_tokens)
-
-            # Pad or truncate
-            if len(input_ids) > self.max_length:
-                input_ids = input_ids[:self.max_length]
-                attention_mask = [1] * self.max_length
-            else:
-                pad_len = self.max_length - len(input_ids)
-                input_ids += [self.tokenizer.pad_token_id] * pad_len
-                attention_mask = [1] * len(input_tokens) + [0] * pad_len
-
-            # Convert to tensors and move to device
-            input_ids = torch.tensor(
-                [input_ids], dtype=torch.long, device=self.device)
-            attention_mask = torch.tensor(
-                [attention_mask], dtype=torch.long, device=self.device)
-            entity_position = torch.tensor(
-                [[start_marker_idx + 1, end_marker_idx + 1]], dtype=torch.long, device=self.device)
-
-            # Get embeddings
-            with torch.no_grad():
-                try:
-                    outputs = self.model(
-                        input_ids=input_ids, attention_mask=attention_mask)
-                    embeddings = outputs.last_hidden_state
-                except RuntimeError as e:
-                    if "out of memory" in str(e):
-                        torch.cuda.empty_cache()
-                        self.logger.warning("GPU OOM, attempting CPU fallback")
-                        # Move to CPU as fallback
-                        input_ids = input_ids.cpu()
-                        attention_mask = attention_mask.cpu()
-                        self.model = self.model.cpu()
-                        outputs = self.model(
-                            input_ids=input_ids, attention_mask=attention_mask)
-                        embeddings = outputs.last_hidden_state
-                        self.model = self.model.to(self.device)
-
-            return {
-                'input_ids': input_ids.cpu(),
-                'attention_mask': attention_mask.cpu(),
-                'embeddings': embeddings.cpu(),
-                'entity_position': entity_position.cpu()
-            }
-
-        except Exception as e:
-            self.logger.error(f"Error in feature extraction: {str(e)}")
-            raise
+                # If still not found, use original offsets
+                start_token = 0
+                end_token = min(10, len(tokens))  # Use first 10 tokens as fallback
+        
+        # Get embeddings
+        with torch.no_grad():
+            outputs = self.model(**encoding)
+            embeddings = outputs.last_hidden_state[0]
+        
+        # Extract features for the entity span
+        entity_embeddings = embeddings[start_token:end_token]
+        entity_attention_mask = encoding["attention_mask"][0][start_token:end_token]
+        
+        return {
+            "input_ids": input_ids.tolist(),
+            "attention_mask": encoding["attention_mask"][0].tolist(),
+            "entity_position": [start_token, end_token],
+            "entity_embeddings": entity_embeddings.tolist(),
+            "entity_attention_mask": entity_attention_mask.tolist(),
+        }
 
     def process_batch(self, texts: List[str], entity_spans: List[Tuple[int, int]]) -> List[Dict]:
         """Process a batch with error handling and memory management."""
