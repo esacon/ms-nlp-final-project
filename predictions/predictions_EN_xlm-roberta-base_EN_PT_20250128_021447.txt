@@ -1,0 +1,236 @@
+article_id	entity_mention	start_offset	end_offset	main_role	fine_grained_roles
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Foreign Adversary
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Foreign Adversary
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	China	127	131	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Russia	137	142	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Iran	2582	2585	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	North Korea	2591	2601	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hamas	2821	2825	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hezbollah	2828	2836	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Foreign Adversary
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Foreign Adversary
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	China	127	131	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Russia	137	142	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Iran	2582	2585	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	North Korea	2591	2601	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hamas	2821	2825	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hezbollah	2828	2836	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Foreign Adversary
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Foreign Adversary
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	China	127	131	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Russia	137	142	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Iran	2582	2585	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	North Korea	2591	2601	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hamas	2821	2825	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hezbollah	2828	2836	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Foreign Adversary
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Foreign Adversary
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	China	127	131	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Russia	137	142	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Iran	2582	2585	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	North Korea	2591	2601	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hamas	2821	2825	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hezbollah	2828	2836	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Foreign Adversary
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Foreign Adversary
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	China	127	131	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Russia	137	142	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Iran	2582	2585	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	North Korea	2591	2601	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hamas	2821	2825	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hezbollah	2828	2836	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Foreign Adversary
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Foreign Adversary
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	China	127	131	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Russia	137	142	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Iran	2582	2585	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	North Korea	2591	2601	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hamas	2821	2825	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hezbollah	2828	2836	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Foreign Adversary
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Foreign Adversary
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	China	127	131	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Russia	137	142	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Iran	2582	2585	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	North Korea	2591	2601	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hamas	2821	2825	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hezbollah	2828	2836	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Foreign Adversary
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Foreign Adversary
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	China	127	131	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Russia	137	142	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Iran	2582	2585	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	North Korea	2591	2601	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hamas	2821	2825	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hezbollah	2828	2836	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Foreign Adversary
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Foreign Adversary
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	China	127	131	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Russia	137	142	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Iran	2582	2585	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	North Korea	2591	2601	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hamas	2821	2825	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hezbollah	2828	2836	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Foreign Adversary
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Foreign Adversary
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	China	127	131	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Russia	137	142	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Iran	2582	2585	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	North Korea	2591	2601	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hamas	2821	2825	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hezbollah	2828	2836	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Foreign Adversary
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Foreign Adversary
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	China	127	131	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Russia	137	142	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Iran	2582	2585	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	North Korea	2591	2601	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hamas	2821	2825	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hezbollah	2828	2836	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Foreign Adversary
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Foreign Adversary
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	China	127	131	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Russia	137	142	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Iran	2582	2585	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	North Korea	2591	2601	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hamas	2821	2825	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hezbollah	2828	2836	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Foreign Adversary
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Foreign Adversary
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	China	127	131	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Russia	137	142	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Iran	2582	2585	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	North Korea	2591	2601	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hamas	2821	2825	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hezbollah	2828	2836	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Foreign Adversary
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Foreign Adversary
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	China	127	131	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Russia	137	142	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Iran	2582	2585	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	North Korea	2591	2601	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hamas	2821	2825	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	Hezbollah	2828	2836	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Ukrainians	241	250	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Azov Regiment	411	423	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russian	834	840	Antagonist	Foreign Adversary
+RU_TEST_00044.txt	Russia	2261	2266	Antagonist	Foreign Adversary
+CC_TEST_00046.txt	Kalmus	1014	1019	Antagonist	Foreign Adversary
+CC_TEST_00091.txt	the UN	2476	2481	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	Alexandria Ocasio-Cortez	1561	1584	Antagonist	Foreign Adversary
+CC_TEST_00053.txt	John Kerry	6016	6025	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	G-20 Summit	657	667	Antagonist	Foreign Adversary
+CC_TEST_00047.txt	Biden	1906	1910	Antagonist	Foreign Adversary
+RU_TEST_00045.txt	China	127	131	Antagonist	Foreign Adversary

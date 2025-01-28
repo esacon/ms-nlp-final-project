@@ -1,0 +1,7 @@
+# Evaluate the model
+python run.py --task evaluate --model_path models/best_model_xlm-roberta-base_EN_PT_20250128_015347.pt --output_dir predictions
+python run.py --task evaluate --model_path models/best_model_xlm-roberta-base_EN_PT_20250128_015347.pt --output_dir predictions --max_articles 10
+
+# Train the model
+python run.py --task train --languages EN,PT --config src/configs.yaml --output_dir models
+python run.py --task train --languages EN,PT --config src/configs.yaml --output_dir models --max_articles 10

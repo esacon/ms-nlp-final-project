@@ -1,0 +1,298 @@
+article_id	entity_mention	start_offset	end_offset	main_role	fine_grained_roles
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Foreign Adversary
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Foreign Adversary
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Foreign Adversary
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Victim
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Victim
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Foreign Adversary
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Foreign Adversary
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Foreign Adversary
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Victim
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Victim
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Foreign Adversary
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Foreign Adversary
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Victim
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Foreign Adversary
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Foreign Adversary
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Victim
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Foreign Adversary
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Foreign Adversary
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Foreign Adversary
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Victim
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Victim
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Foreign Adversary
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Victim
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Foreign Adversary
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Victim
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Victim
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Victim
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Victim
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Victim
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Victim
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Victim
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Victim
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Foreign Adversary
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Foreign Adversary
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Victim
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Foreign Adversary
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Victim
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Victim
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Victim
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Victim
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Victim
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Foreign Adversary
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Foreign Adversary
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Victim
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Victim
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Victim
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Victim
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Foreign Adversary
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Foreign Adversary
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Foreign Adversary
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Victim
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Victim
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Foreign Adversary
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Foreign Adversary
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Foreign Adversary
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Foreign Adversary
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Foreign Adversary
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Foreign Adversary
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Victim
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Foreign Adversary
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Victim
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Victim
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Victim
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Victim
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Victim
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Victim
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Victim
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Victim
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Victim
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Foreign Adversary
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Foreign Adversary
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Foreign Adversary
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Victim
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Foreign Adversary
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Foreign Adversary
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Foreign Adversary
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Foreign Adversary
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Victim
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Victim
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Foreign Adversary
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Foreign Adversary
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Foreign Adversary
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Victim
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Foreign Adversary
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Foreign Adversary
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Foreign Adversary
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Victim
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Victim
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Foreign Adversary
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Victim
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Victim
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Victim
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Victim
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Victim
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Victim
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Victim
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Victim
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Victim
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Victim
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Victim
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Victim
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Victim
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Victim
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Victim
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Victim
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Victim
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Victim
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Victim
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Victim
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Victim
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Victim
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Victim
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Victim
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Victim
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Foreign Adversary
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Victim
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Victim
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Foreign Adversary
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Foreign Adversary
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Foreign Adversary
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Victim
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Foreign Adversary
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary
+PT_URW_TEST_465.txt	Agência Internacional de Energia Atómica	233	272	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	253	258	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Vladimir Putin	1493	1506	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Ucrânia	1564	1570	Antagonist	Foreign Adversary
+PT_URW_TEST_511.txt	Rússia	1590	1595	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Mme. Sandrine Dixson-Declève	991	1018	Antagonist	Foreign Adversary
+PT_CC_TEST_523.txt	Clube de Roma	1051	1063	Antagonist	Foreign Adversary
+PT_CC_TEST_436.txt	Greta Thunberg	99	112	Antagonist	Foreign Adversary
+PT_URW_TEST_439.txt	Volodymyr Zelensky	340	357	Antagonist	Foreign Adversary
+PT_CC_TEST_437.txt	Instituto George Marshall	1904	1928	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Comissão Europeia	1243	1259	Antagonist	Foreign Adversary
+PT_CC_TEST_456.txt	Von der Leyen	1273	1285	Antagonist	Victim
+PT_CC_TEST_442.txt	António Costa e Silva	3911	3931	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Moscovo	656	662	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Canadá	683	688	Antagonist	Foreign Adversary
+PT_URW_TEST_471.txt	Ucrânia	906	912	Antagonist	Foreign Adversary

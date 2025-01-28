@@ -571,7 +571,7 @@ class TrainingPipeline:
                             valid_roles = set(FINE_GRAINED_ROLES[6:18])
                         else:  # Innocent
                             valid_roles = set(FINE_GRAINED_ROLES[18:])
-                        
+                            
                         # Take up to 3 valid roles that are above threshold
                         for prob, role in role_probs:
                             if role in valid_roles and len(fine_roles) < 3:
@@ -595,20 +595,20 @@ class TrainingPipeline:
                             "main_role": main_role,
                             "fine_grained_roles": fine_roles
                         })
-                        
+                    
                         # Log predictions for debugging
                         logger.info(f"\nPrediction for {article.id} - {entity.entity_mention}:")
                         logger.info(f"Main role: {main_role} (prob: {main_prob:.4f})")
                         logger.info(f"Fine roles: {fine_roles}")
                         logger.info(f"Top role probs: {role_probs[:5]}")
-                    
+            
                     processed_entities += len(main_preds)
             
             # Save predictions with unique run ID
             output_path = self._get_predictions_path(output_dir, lang, run_id)
             self._save_predictions(predictions, output_path)
             logger.info(f"Saved {len(predictions)} predictions for {lang} to {output_path}")
-            
+
             # Run scorer if in dev mode
             if split == "dev":
                 self._run_scorer(
