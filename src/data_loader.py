@@ -11,6 +11,7 @@ from src.taxonomy import (
     get_all_subroles, MAIN_ROLES
 )
 from src.preprocessing import Preprocessor
+import numpy as np
 
 logger = get_logger(__name__)
 
@@ -51,12 +52,13 @@ class EntityDataset(Dataset):
         self.logger = get_logger(__name__)
         
         # Validate that if we have labels, we have them for all features
-        if self.labels is not None and len(self.labels["main_labels"]) != len(self.features):
-            self.logger.warning(
-                f"Number of labels ({len(self.labels['main_labels'])}) doesn't match number of features ({len(self.features)}). "
-                "Labels will be ignored."
-            )
-            self.labels = None
+        if self.labels is not None:
+            if len(self.labels["main_labels"]) != len(self.features):
+                self.logger.warning(
+                    f"Number of labels ({len(self.labels['main_labels'])}) doesn't match number of features ({len(self.features)}). "
+                    "Labels will be ignored."
+                )
+                self.labels = None
 
     def __len__(self) -> int:
         return len(self.features)
@@ -66,32 +68,93 @@ class EntityDataset(Dataset):
         if idx >= len(self.features):
             raise IndexError(f"Index {idx} out of range for dataset with {len(self.features)} items")
             
+        # Get features for this item
+        feature = self.features[idx]
+        
+        # Convert features to numpy arrays for consistent handling
         item = {
-            "input_ids": self.features[idx]["input_ids"],
-            "attention_mask": self.features[idx]["attention_mask"],
-            "entity_position": self.features[idx]["entity_position"],
-            "embeddings": self.features[idx].get("embeddings", None)
+            "input_ids": np.array(feature["input_ids"]),
+            "attention_mask": np.array(feature["attention_mask"]),
+            "entity_position": np.array(feature["entity_position"]),
         }
+        
+        # Add embeddings if they exist
+        if "entity_embeddings" in feature:
+            item["embeddings"] = np.array(feature["entity_embeddings"])
 
         # Only add labels if they exist and index is valid
         if self.labels is not None:
             try:
-                item["main_labels"] = self.labels["main_labels"][idx]
-                item["fine_labels"] = self.labels["fine_labels"][idx]
+                item["main_labels"] = np.array(self.labels["main_labels"][idx])
+                item["fine_labels"] = np.array(self.labels["fine_labels"][idx])
             except Exception as e:
                 self.logger.warning(f"Error processing labels for index {idx}: {e}")
                 pass
-
+        
         return item
+
+    def collate_fn(self, batch: List[Dict]) -> Dict[str, torch.Tensor]:
+        """Custom collate function to handle variable length sequences.
+        
+        Args:
+            batch: List of dictionaries containing features and labels
+            
+        Returns:
+            Dictionary with batched tensors
+        """
+        # Check if we have labels in the batch
+        has_labels = "main_labels" in batch[0] and "fine_labels" in batch[0]
+        
+        # Get max sequence length in this batch
+        max_len = max(len(item["input_ids"]) for item in batch)
+        
+        # Initialize tensors
+        batch_size = len(batch)
+        input_ids = torch.zeros((batch_size, max_len), dtype=torch.long)
+        attention_mask = torch.zeros((batch_size, max_len), dtype=torch.long)
+        entity_positions = torch.zeros((batch_size, 2), dtype=torch.long)
+        
+        # Fill tensors
+        for i, item in enumerate(batch):
+            # Get length of this sequence
+            seq_len = len(item["input_ids"])
+            
+            # Convert to tensors and pad
+            input_ids[i, :seq_len] = torch.tensor(item["input_ids"], dtype=torch.long)
+            attention_mask[i, :seq_len] = torch.tensor(item["attention_mask"], dtype=torch.long)
+            entity_positions[i] = torch.tensor(item["entity_position"], dtype=torch.long)
+        
+        # Create output dictionary
+        output = {
+            "input_ids": input_ids,
+            "attention_mask": attention_mask,
+            "entity_position": entity_positions
+        }
+        
+        # Add labels if they exist
+        if has_labels:
+            main_labels = torch.tensor([item["main_labels"] for item in batch], dtype=torch.long)
+            fine_labels = torch.tensor([item["fine_labels"] for item in batch], dtype=torch.float)
+            output["main_labels"] = main_labels
+            output["fine_labels"] = fine_labels
+        
+        return output
 
 
 class DataLoader:
     """Class for loading and processing the dataset"""
 
-    def __init__(self, config: Dict):
+    def __init__(self, config: Dict, max_articles: int = None):
+        """Initialize the DataLoader with configuration.
+        
+        Args:
+            config: Configuration dictionary containing paths and settings
+            max_articles: Maximum number of articles to process (for debugging)
+        """
         self.config = config
         self.logger = get_logger(__name__)
         self.taxonomy = load_taxonomy()
+        self.max_articles = max_articles
         self._init_role_mappings()
 
         # Initialize preprocessor with config
@@ -162,6 +225,9 @@ class DataLoader:
             data_dir: Root data directory
             language: Language code (EN or PT)
             split: Data split (train, dev, or test)
+            
+        Returns:
+            List of Article objects
         """
         articles = []
         
@@ -189,7 +255,6 @@ class DataLoader:
             self.logger.error(f"Directory not found: {data_path}")
             return []
 
-        # Load articles
         try:
             # First, load all annotations into a dictionary for faster lookup
             article_annotations: Dict[str, List[EntityAnnotation]] = {}
@@ -211,6 +276,8 @@ class DataLoader:
                         try:
                             parts = line.strip().split("\t")
                             article_id = parts[0]
+                            
+                            # Handle different annotation formats for train/dev vs test
                             if split in ["train", "dev"]:
                                 annotation = self._parse_annotation(parts, ann_path)
                                 self.logger.debug(f"Parsed annotation for {article_id}: {annotation.entity_mention} "
@@ -224,6 +291,9 @@ class DataLoader:
                                     end_offset=int(parts[3])
                                 )
                                 self.logger.debug(f"Parsed mention for {article_id}: {annotation.entity_mention}")
+                            
+                            # Clean up article ID by removing file extension if present
+                            article_id = os.path.splitext(article_id)[0]
                             
                             if article_id not in article_annotations:
                                 article_annotations[article_id] = []
@@ -248,53 +318,67 @@ class DataLoader:
             pbar = tqdm(article_files, desc=f"Processing {split} articles", unit="articles")
             
             for filename in pbar:
-                article_id = filename
+                if self.max_articles and len(articles) >= self.max_articles:
+                    break
                 
-                # Read article text
-                with open(os.path.join(data_path, filename), "r", encoding="utf-8") as f:
-                    text = f.read().strip()
+                article_id = os.path.splitext(filename)[0]  # Remove .txt extension
                 
-                # Preprocess text
-                self.logger.debug(f"Preprocessing article {article_id} (length: {len(text)})")
-                preprocessed_text = self._preprocess_article(text)
-                
-                # Get annotations for this article
-                annotations = article_annotations.get(article_id, [])
-                
-                article = Article(
-                    id=article_id,
-                    text=text,
-                    language=language,
-                    annotations=annotations,
-                    preprocessed_text=preprocessed_text
-                )
-                articles.append(article)
-                
-                # Update progress bar description
-                pbar.set_postfix({
-                    "processed": len(articles),
-                    "with_annotations": len([a for a in articles if a.annotations])
-                })
+                try:
+                    # Read article text
+                    with open(os.path.join(data_path, filename), "r", encoding="utf-8") as f:
+                        text = f.read().strip()
                     
+                    # Preprocess text
+                    self.logger.debug(f"Preprocessing article {article_id} (length: {len(text)})")
+                    preprocessed_text = self._preprocess_article(text)
+                    
+                    # Get annotations for this article
+                    annotations = article_annotations.get(article_id, [])
+                    
+                    # Only add articles that have annotations
+                    if annotations:
+                        article = Article(
+                            id=article_id,
+                            text=text,
+                            language=language,
+                            annotations=annotations,
+                            preprocessed_text=preprocessed_text
+                        )
+                        articles.append(article)
+                        self.logger.debug(f"Added article {article_id} with {len(annotations)} annotations")
+                    else:
+                        self.logger.debug(f"Skipping article {article_id} - no annotations found")
+                    
+                    # Update progress bar description
+                    pbar.set_postfix({
+                        "processed": len(articles),
+                        "with_annotations": len([a for a in articles if a.annotations])
+                    })
+                except Exception as e:
+                    self.logger.error(f"Error processing article {filename}: {e}")
+                    continue
+
         except Exception as e:
             self.logger.error(f"Error loading articles from {data_path}: {str(e)}")
             return []
 
         self.logger.info(f"\nSummary for {language} ({split}):")
-        self.logger.info(f"- Total articles: {len(articles)}")
+        self.logger.info(f"- Total articles processed: {len(article_files)}")
+        self.logger.info(f"- Articles with annotations: {len(articles)}")
         self.logger.info(f"- Total annotations: {total_annotations}")
-        self.logger.info(f"- Articles with annotations: {len(article_annotations)}")
         self.logger.info("="*50 + "\n")
+        
         return articles
 
     def prepare_features(
         self,
         articles: List[Article],
         feature_extractor,
-    ) -> Tuple[List[Dict], Optional[List[Dict]]]:
+    ) -> Tuple[List[Dict], Optional[Dict]]:
         """Prepare features and labels for training/inference"""
         features = []
-        labels = []
+        main_labels = []
+        fine_labels = []
         has_labels = any(len(article.annotations) > 0 for article in articles)
 
         # Process each article
@@ -304,9 +388,13 @@ class DataLoader:
         for article in articles:
             for annotation in article.annotations:
                 try:
+                    # Get the entity text from the article using the annotation offsets
+                    entity_text = article.text[annotation.start_offset:annotation.end_offset]
+                    
                     # Extract features using preprocessed text
                     feature = feature_extractor.extract_features(
                         text=article.preprocessed_text or article.text,  # Fallback to original if needed
+                        entity_text=entity_text,
                         start_offset=annotation.start_offset,
                         end_offset=annotation.end_offset
                     )
@@ -314,47 +402,113 @@ class DataLoader:
 
                     # Prepare labels if available
                     if has_labels and annotation.main_role and annotation.fine_grained_roles:
-                        label = {
-                            "main_role": self.main_role_to_idx[annotation.main_role],
-                            "fine_roles": [
-                                self.fine_role_to_idx[role]
-                                for role in annotation.fine_grained_roles
-                                if role in self.fine_role_to_idx
-                            ]
-                        }
-                        labels.append(label)
+                        main_labels.append(self.main_role_to_idx[annotation.main_role])
+                        fine_label = [
+                            self.fine_role_to_idx[role]
+                            for role in annotation.fine_grained_roles
+                            if role in self.fine_role_to_idx
+                        ]
+                        fine_labels.append(fine_label)
                     
                     pbar.update(1)
                     pbar.set_postfix({
                         "features": len(features),
-                        "labels": len(labels) if has_labels else 0
+                        "labels": len(main_labels) if has_labels else 0
                     })
-
                 except Exception as e:
                     self.logger.warning(f"Error processing annotation in {article.id}: {e}")
                     continue
         
         pbar.close()
-        return features, labels if has_labels else None
+        
+        # Return features and labels in the correct format
+        if has_labels:
+            labels = {
+                "main_labels": main_labels,
+                "fine_labels": fine_labels
+            }
+            return features, labels
+        return features, None
+
+    def create_dataset(
+        self,
+        features: List[Dict],
+        labels: Optional[Dict] = None,
+        taxonomy: Optional[Dict] = None
+    ) -> EntityDataset:
+        """Create a dataset from features and labels.
+        
+        Args:
+            features: List of extracted features
+            labels: Optional dictionary containing main_labels and fine_labels
+            taxonomy: Optional taxonomy dictionary
+            
+        Returns:
+            EntityDataset object
+        """
+        return EntityDataset(
+            features=features,
+            labels=labels,
+            taxonomy=taxonomy or self.taxonomy
+        )
 
     def create_dataloader(
         self,
         features: List[Dict],
-        labels: Optional[List[Dict]] = None,
+        labels: Optional[Dict] = None,
         batch_size: int = 32,
         shuffle: bool = True
     ) -> torch.utils.data.DataLoader:
-        """Create a DataLoader for training/inference"""
-        dataset = EntityDataset(
-            features=features,
-            labels=labels,
-            taxonomy=self.taxonomy
-        )
-
+        """Create a PyTorch DataLoader from features and labels.
+        
+        Args:
+            features: List of extracted features
+            labels: Optional dictionary containing main_labels and fine_labels
+            batch_size: Batch size for training
+            shuffle: Whether to shuffle the data
+            
+        Returns:
+            PyTorch DataLoader
+        """
+        # Create dataset
+        dataset = self.create_dataset(features, labels)
+        
+        # Create dataloader with custom collate function
         return torch.utils.data.DataLoader(
             dataset,
             batch_size=batch_size,
             shuffle=shuffle,
-            num_workers=self.config.get(
-                "num_workers", 0)  # Configurable workers
+            collate_fn=lambda x: dataset.collate_fn(x)
         )
+
+    def load_data(self, split: str = "train") -> List[Article]:
+        """Load data for the specified split.
+        
+        Args:
+            split: Data split to load ('train', 'dev', or 'test')
+            
+        Returns:
+            List of Article objects
+        """
+        languages = self.config["languages"]["default"].split()
+        all_articles = []
+        
+        # Get the correct data directory based on split
+        data_dir_key = f"{split}_data_dir"
+        data_dir = self.config["paths"].get(data_dir_key)
+        
+        if not data_dir:
+            self.logger.error(f"No data directory configured for split '{split}'")
+            return []
+        
+        for language in languages:
+            articles = self.load_articles(
+                data_dir=data_dir,
+                language=language,
+                split=split
+            )
+            if self.max_articles:
+                articles = articles[:self.max_articles]
+            all_articles.extend(articles)
+            
+        return all_articles

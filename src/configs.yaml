@@ -23,9 +23,9 @@ preprocessing:
   
 
 paths:
-  train_data_dir: "data/train"
-  dev_data_dir: "data/dev"
-  test_data_dir: "data/test"
+  train_data_dir: "data"
+  dev_data_dir: "data"
+  test_data_dir: "data"
   model_output_dir: "models"
   taxonomy_path: "src/taxonomy.json"
 
