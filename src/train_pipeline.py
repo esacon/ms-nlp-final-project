@@ -109,33 +109,53 @@ class TrainingPipeline:
         
         # Extract features
         logger.info("\nExtracting features...")
-        features, _ = self.data_loader.prepare_features(all_articles, self.feature_extractor)
+        features = []
+        labels = {"main_labels": [], "fine_labels": []}
+        
+        for article in tqdm(all_articles, desc="Processing articles"):
+            for ann in article.annotations:
+                try:
+                    # Extract features for this entity
+                    feature = self.feature_extractor.extract_features(
+                        text=article.text,
+                        entity_text=ann.entity_mention,
+                        start_offset=ann.start_offset,
+                        end_offset=ann.end_offset
+                    )
+                    
+                    # Debug logging for feature extraction
+                    if len(features) == 0:  # Log first example
+                        logger.debug(f"\nFirst example feature extraction:")
+                        logger.debug(f"Entity: {ann.entity_mention}")
+                        logger.debug(f"Input shape: {len(feature['input_ids'])}")
+                        logger.debug(f"Entity position: {feature['entity_position']}")
+                    
+                    features.append(feature)
+                    
+                    # Convert labels
+                    if ann.main_role and ann.fine_grained_roles:
+                        # Convert main role to index
+                        main_role_idx = MAIN_ROLES.index(ann.main_role)
+                        labels["main_labels"].append(main_role_idx)
+                        
+                        # Convert fine-grained roles to multi-hot
+                        fine_label = torch.zeros(len(FINE_GRAINED_ROLES))
+                        for role in ann.fine_grained_roles:
+                            if role in FINE_GRAINED_ROLES:
+                                role_idx = FINE_GRAINED_ROLES.index(role)
+                                fine_label[role_idx] = 1
+                        labels["fine_labels"].append(fine_label)
+                    
+                except Exception as e:
+                    logger.error(f"Error processing entity {ann.entity_mention}: {str(e)}")
+                    continue
+        
         logger.info(f"Extracted features for {len(features)} entities")
         
-        # Create labels
-        main_labels = []
-        fine_labels = []
-        
-        for article in all_articles:
-            for ann in article.annotations:
-                if ann.main_role and ann.fine_grained_roles:
-                    # Convert main role to index
-                    main_role_idx = MAIN_ROLES.index(ann.main_role)
-                    main_labels.append(main_role_idx)
-                    
-                    # Convert fine-grained roles to multi-hot
-                    fine_label = torch.zeros(len(FINE_GRAINED_ROLES))
-                    for role in ann.fine_grained_roles:
-                        if role in FINE_GRAINED_ROLES:
-                            role_idx = FINE_GRAINED_ROLES.index(role)
-                            fine_label[role_idx] = 1
-                    fine_labels.append(fine_label)
-        
-        # Convert to tensors
-        if main_labels and fine_labels:
-            main_labels = torch.tensor(main_labels, dtype=torch.long)
-            fine_labels = torch.stack(fine_labels)
-            labels = {"main_labels": main_labels, "fine_labels": fine_labels}
+        # Convert labels to tensors
+        if labels["main_labels"] and labels["fine_labels"]:
+            labels["main_labels"] = torch.tensor(labels["main_labels"], dtype=torch.long)
+            labels["fine_labels"] = torch.stack(labels["fine_labels"])
         else:
             # For evaluation, create dummy labels
             labels = {
@@ -143,14 +163,27 @@ class TrainingPipeline:
                 "fine_labels": torch.zeros(len(features), len(FINE_GRAINED_ROLES))
             }
         
-        # Create dataloader
+        # Create dataloader with collate function
         dataloader = self.data_loader.create_dataloader(
             features=features,
             labels=labels,
             batch_size=self.config["model"]["batch_size"],
             shuffle=(split == "train")
         )
+        
         logger.info(f"Created DataLoader with {len(dataloader)} batches")
+        
+        # Log label distribution
+        if split == "train":
+            main_role_counts = torch.bincount(labels["main_labels"])
+            logger.info("\nMain role distribution:")
+            for i, count in enumerate(main_role_counts):
+                logger.info(f"{MAIN_ROLES[i]}: {count.item()}")
+            
+            fine_role_counts = labels["fine_labels"].sum(dim=0)
+            logger.info("\nFine-grained role distribution:")
+            for i, count in enumerate(fine_role_counts):
+                logger.info(f"{FINE_GRAINED_ROLES[i]}: {count.item()}")
         
         return dataloader, all_articles
     
@@ -265,7 +298,7 @@ class TrainingPipeline:
         scaler: Optional[torch.cuda.amp.GradScaler],
         epoch: int
     ) -> Dict[str, float]:
-        """Train for one epoch."""
+        """Train for one epoch with enhanced monitoring."""
         self.model.train()
         total_loss = 0
         total_main_loss = 0
@@ -274,22 +307,44 @@ class TrainingPipeline:
         total_fine_acc = 0
         steps = 0
         
-        progress_bar = tqdm(train_loader, desc=f"Training Epoch {epoch}")
+        progress_bar = tqdm(train_loader, desc=f"Epoch {epoch+1}")
         
-        for batch in progress_bar:
-            # Move batch to device
-            input_ids = batch["input_ids"].to(self.device)
-            attention_mask = batch["attention_mask"].to(self.device)
-            entity_positions = batch["entity_position"].to(self.device)
-            main_labels = batch["main_labels"].to(self.device)
-            fine_labels = batch["fine_labels"].to(self.device)
-            embeddings = batch.get("embeddings", None)
-            if embeddings is not None:
-                embeddings = embeddings.to(self.device)
-            
-            # Forward pass
-            if scaler:
-                with torch.cuda.amp.autocast():
+        for batch_idx, batch in enumerate(progress_bar):
+            try:
+                # Move batch to device
+                input_ids = batch["input_ids"].to(self.device)
+                attention_mask = batch["attention_mask"].to(self.device)
+                entity_positions = batch["entity_position"].to(self.device)
+                main_labels = batch["main_labels"].to(self.device)
+                fine_labels = batch["fine_labels"].to(self.device)
+                
+                # Get embeddings if provided
+                embeddings = batch.get("embeddings")
+                if embeddings is not None:
+                    embeddings = embeddings.to(self.device)
+                
+                # Debug logging for first batch
+                if batch_idx == 0 and epoch == 0:
+                    logger.debug("\nFirst batch shapes:")
+                    logger.debug(f"Input IDs: {input_ids.shape}")
+                    logger.debug(f"Attention Mask: {attention_mask.shape}")
+                    logger.debug(f"Entity Positions: {entity_positions.shape}")
+                    logger.debug(f"Main Labels: {main_labels.shape}")
+                    logger.debug(f"Fine Labels: {fine_labels.shape}")
+                
+                # Forward pass with mixed precision
+                if scaler is not None:
+                    with torch.cuda.amp.autocast():
+                        outputs = self.model(
+                            input_ids=input_ids,
+                            attention_mask=attention_mask,
+                            entity_positions=entity_positions,
+                            embeddings=embeddings,
+                            main_labels=main_labels,
+                            fine_labels=fine_labels
+                        )
+                        loss = outputs.loss
+                else:
                     outputs = self.model(
                         input_ids=input_ids,
                         attention_mask=attention_mask,
@@ -299,79 +354,61 @@ class TrainingPipeline:
                         fine_labels=fine_labels
                     )
                     loss = outputs.loss
-            else:
-                outputs = self.model(
-                    input_ids=input_ids,
-                    attention_mask=attention_mask,
-                    entity_positions=entity_positions,
-                    embeddings=embeddings,
-                    main_labels=main_labels,
-                    fine_labels=fine_labels
-                )
-                loss = outputs.loss
-            
-            # Backward pass
-            if scaler:
-                scaler.scale(loss).backward()
-                scaler.step(optimizer)
-                scaler.update()
-            else:
-                loss.backward()
-                optimizer.step()
-            
-            scheduler.step()
-            optimizer.zero_grad()
-            
-            # Calculate accuracies
-            with torch.no_grad():
-                main_preds = torch.argmax(outputs.main_logits, dim=1)
-                main_acc = (main_preds == main_labels).float().mean().item()
                 
-                fine_preds = (torch.sigmoid(outputs.fine_logits) > 0.5).float()
-                fine_acc = (fine_preds == fine_labels).float().mean().item()
-            
-            # Update metrics
-            total_loss += loss.item()
-            total_main_loss += outputs.main_loss.item()
-            total_fine_loss += outputs.fine_loss.item()
-            total_main_acc += main_acc
-            total_fine_acc += fine_acc
-            steps += 1
-            
-            # Update progress bar with detailed metrics
-            progress_bar.set_postfix({
-                'loss': f"{loss.item():.4f}",
-                'main_loss': f"{outputs.main_loss.item():.4f}",
-                'fine_loss': f"{outputs.fine_loss.item():.4f}",
-                'main_acc': f"{main_acc:.4f}",
-                'fine_acc': f"{fine_acc:.4f}"
-            })
-            
-            # Log detailed metrics every 100 steps
-            if steps % 100 == 0:
-                logger.info(
-                    f"Epoch {epoch} - Step {steps}/{len(train_loader)} | "
-                    f"Loss: {loss.item():.4f} | "
-                    f"Main Loss: {outputs.main_loss.item():.4f} | "
-                    f"Fine Loss: {outputs.fine_loss.item():.4f} | "
-                    f"Main Acc: {main_acc:.4f} | "
-                    f"Fine Acc: {fine_acc:.4f}"
-                )
+                # Backward pass
+                if scaler is not None:
+                    scaler.scale(loss).backward()
+                    scaler.step(optimizer)
+                    scaler.update()
+                else:
+                    loss.backward()
+                    optimizer.step()
+                
+                optimizer.zero_grad()
+                scheduler.step()
+                
+                # Calculate metrics
+                with torch.no_grad():
+                    main_preds = torch.argmax(outputs.main_logits, dim=1)
+                    main_acc = (main_preds == main_labels).float().mean().item()
+                    
+                    fine_preds = (torch.sigmoid(outputs.fine_logits) > 0.5).float()
+                    fine_acc = (fine_preds == fine_labels).float().mean().item()
+                
+                # Update metrics
+                total_loss += loss.item()
+                total_main_loss += outputs.main_loss.item() if outputs.main_loss is not None else 0
+                total_fine_loss += outputs.fine_loss.item() if outputs.fine_loss is not None else 0
+                total_main_acc += main_acc
+                total_fine_acc += fine_acc
+                steps += 1
+                
+                # Update progress bar
+                progress_bar.set_postfix({
+                    'loss': f'{loss.item():.4f}',
+                    'main_acc': f'{main_acc:.4f}',
+                    'fine_acc': f'{fine_acc:.4f}',
+                    'lr': f'{scheduler.get_last_lr()[0]:.6f}'
+                })
+                
+                # Memory management
+                if batch_idx % 10 == 0:  # Every 10 batches
+                    torch.cuda.empty_cache()
+                
+            except Exception as e:
+                logger.error(f"Error in batch {batch_idx}: {str(e)}")
+                continue
         
-        # Calculate average metrics
-        avg_loss = total_loss / steps
-        avg_main_loss = total_main_loss / steps
-        avg_fine_loss = total_fine_loss / steps
-        avg_main_acc = total_main_acc / steps
-        avg_fine_acc = total_fine_acc / steps
-        
-        return {
-            'loss': avg_loss,
-            'main_loss': avg_main_loss,
-            'fine_loss': avg_fine_loss,
-            'main_acc': avg_main_acc,
-            'fine_acc': avg_fine_acc
+        # Calculate epoch metrics
+        metrics = {
+            'loss': total_loss / steps,
+            'main_loss': total_main_loss / steps,
+            'fine_loss': total_fine_loss / steps,
+            'main_acc': total_main_acc / steps,
+            'fine_acc': total_fine_acc / steps
         }
+        
+        return metrics
     
     def _evaluate(self, val_loader: TorchDataLoader) -> Dict[str, float]:
         """Evaluate the model."""
@@ -397,9 +434,7 @@ class TrainingPipeline:
                     input_ids=input_ids,
                     attention_mask=attention_mask,
                     entity_positions=entity_positions,
-                    embeddings=embeddings,
-                    main_labels=main_labels,
-                    fine_labels=fine_labels
+                    embeddings=embeddings
                 )
                 
                 loss, main_acc, fine_acc = self._compute_loss_and_metrics(
@@ -451,8 +486,6 @@ class TrainingPipeline:
         logger.info(
             f"Epoch {epoch+1}/{self.config['model']['num_epochs']} - "
             f"Train loss: {train_metrics['loss']:.4f} - "
-            f"Train main loss: {train_metrics['main_loss']:.4f} - "
-            f"Train fine loss: {train_metrics['fine_loss']:.4f} - "
             f"Train main acc: {train_metrics['main_acc']:.4f} - "
             f"Train fine acc: {train_metrics['fine_acc']:.4f} - "
             f"Val loss: {val_metrics['loss']:.4f} - "
@@ -493,184 +526,183 @@ class TrainingPipeline:
         logger.info(f"Loaded checkpoint from {path} (epoch {checkpoint['epoch']})")
 
     def evaluate(self, languages: List[str], output_dir: str, split: str = "test", max_articles: int = None) -> None:
-        """Run evaluation on the specified languages and split."""
-        logger.info(f"Starting evaluation on {split} split for languages: {languages}")
+        """
+        Evaluate model and generate predictions in the scorer-compatible format.
         
-        # Load data
-        eval_loader, eval_articles = self.prepare_data(languages, split, max_articles)
+        Args:
+            languages: List of language codes to process
+            output_dir: Directory to save predictions
+            split: Data split to evaluate on ('dev' or 'test')
+            max_articles: Maximum number of articles to evaluate on
+        """
+        logger.info(f"Starting evaluation on {split} set")
         
-        # Set model to evaluation mode
+        # Generate unique run ID for this evaluation
+        run_id = self._generate_run_id()
+        logger.info(f"Starting evaluation run: {run_id}")
+        
+        # Initialize components if needed
+        if self.model is None:
+            self.initialize_components()
+        
         self.model.eval()
-        predictions = []
-        entity_idx = 0  # Keep track of which entity we're processing
+        os.makedirs(output_dir, exist_ok=True)
         
-        # Create a flat list of all annotations for easier indexing
-        all_annotations = []
-        for article in eval_articles:
-            for ann in article.annotations:
-                all_annotations.append((article, ann))
-        
-        # Class weights to balance predictions
-        main_role_weights = torch.tensor([1.2, 1.2, 0.6]).to(self.device)  # Reduce weight for Innocent
-        temperature = 1.5  # Temperature for softmax to make distributions sharper
-        
-        with torch.no_grad():
-            for batch in tqdm(eval_loader, desc="Evaluating"):
-                # Move batch to device
-                input_ids = batch["input_ids"].to(self.device)
-                attention_mask = batch["attention_mask"].to(self.device)
-                entity_positions = batch["entity_position"].to(self.device)
-                embeddings = batch.get("embeddings", None)
-                if embeddings is not None:
-                    embeddings = embeddings.to(self.device)
-                
-                # Forward pass
-                outputs = self.model(
-                    input_ids=input_ids,
-                    attention_mask=attention_mask,
-                    entity_positions=entity_positions,
-                    embeddings=embeddings
-                )
-                
-                # Apply class weights and temperature scaling
-                weighted_logits = outputs.main_logits * main_role_weights.unsqueeze(0)
-                main_probs = torch.softmax(weighted_logits / temperature, dim=1)
-                fine_probs = torch.sigmoid(outputs.fine_logits / temperature)
-                
-                # Process each prediction in the batch
-                for i in range(main_probs.size(0)):
-                    if entity_idx >= len(all_annotations):
-                        continue
-                        
-                    # Get article and entity information
-                    article, entity = all_annotations[entity_idx]
-                    
-                    # Get main role prediction with dynamic thresholding
-                    main_probs_i = main_probs[i]
-                    max_prob, main_role_idx = torch.max(main_probs_i, dim=0)
-                    
-                    # If the confidence is too low, look at second highest probability
-                    if max_prob < 0.5:  # Confidence threshold
-                        sorted_probs, sorted_indices = torch.sort(main_probs_i, descending=True)
-                        if sorted_probs[1] > 0.3:  # Check second highest probability
-                            main_role_idx = sorted_indices[1]
-                            max_prob = sorted_probs[1]
-                    
-                    main_role = MAIN_ROLES[main_role_idx]
-                    main_confidence = max_prob.item()
-                    
-                    # Get valid fine-grained roles based on main role
-                    if main_role == "Protagonist":
-                        valid_roles = set(FINE_GRAINED_ROLES[:6])
-                        max_roles = 3
-                        threshold = 0.4  # Higher threshold for Protagonist
-                    elif main_role == "Antagonist":
-                        valid_roles = set(FINE_GRAINED_ROLES[6:18])
-                        max_roles = 3
-                        threshold = 0.35  # Medium threshold for Antagonist
-                    else:  # Innocent
-                        valid_roles = set(FINE_GRAINED_ROLES[18:22])
-                        max_roles = 4
-                        threshold = 0.45  # Higher threshold for Innocent to prevent default predictions
-                    
-                    # Get fine-grained role predictions with dynamic thresholding
-                    fine_roles = []
-                    role_confidences = []
-                    
-                    # Get all valid roles with their probabilities
-                    valid_probs = []
-                    for j, role in enumerate(FINE_GRAINED_ROLES):
-                        if role in valid_roles:
-                            prob = fine_probs[i, j].item()
-                            valid_probs.append((prob, role))
-                    
-                    # Sort by probability
-                    valid_probs.sort(reverse=True)
-                    
-                    # Dynamic thresholding based on probability distribution
-                    if valid_probs:
-                        max_prob = valid_probs[0][0]
-                        dynamic_threshold = max(threshold, max_prob * 0.6)  # At least 60% of max probability
-                        
-                        # Take roles above dynamic threshold
-                        for prob, role in valid_probs:
-                            if prob > dynamic_threshold and len(fine_roles) < max_roles:
-                                fine_roles.append(role)
-                                role_confidences.append(prob)
-                    
-                    # Ensure at least one role is predicted, but with stricter criteria
-                    if not fine_roles and valid_probs:
-                        top_prob, top_role = valid_probs[0]
-                        if top_prob > threshold * 0.8:  # Only take top role if it's reasonably confident
-                            fine_roles = [top_role]
-                            role_confidences = [top_prob]
-                        else:
-                            # If no confident predictions, take top 2 roles with highest relative probability
-                            relative_probs = [(p/sum(p for p, _ in valid_probs[:2]), r) for p, r in valid_probs[:2]]
-                            fine_roles = [r for _, r in relative_probs]
-                            role_confidences = [p for p, _ in relative_probs]
-                    
-                    # Create prediction entry
-                    prediction = {
-                        "article_id": article.id,
-                        "entity_mention": entity.entity_mention,
-                        "start_offset": entity.start_offset,
-                        "end_offset": entity.end_offset,
-                        "main_role": main_role,
-                        "main_confidence": main_confidence,
-                        "fine_roles": fine_roles,
-                        "fine_confidences": role_confidences
-                    }
-                    predictions.append(prediction)
-                    entity_idx += 1
-                    
-                    # Log prediction details for debugging
-                    logger.debug(
-                        f"\nPrediction for {article.id} - {entity.entity_mention}:\n"
-                        f"Main role probs: {dict(zip(MAIN_ROLES, main_probs_i.tolist()))}\n"
-                        f"Selected main role: {main_role} ({main_confidence:.4f})\n"
-                        f"Fine role probs: {valid_probs}\n"
-                        f"Selected fine roles: {list(zip(fine_roles, role_confidences))}"
-                    )
-        
-        # Save predictions for each language
+        # Process each language separately as required by the scorer
         for lang in languages:
-            output_path = self._get_predictions_path(output_dir, lang, self._generate_run_id())
-            self._save_predictions(predictions, output_path)
-            logger.info(f"Saved predictions for {lang} to {output_path}")
+            predictions = []
+            processed_entities = 0
             
-            # Run scorer if gold file exists
-            gold_file = f"data/{split}/{lang}/subtask-1-annotations.txt"
-            if os.path.exists(gold_file):
-                self._run_scorer(gold_file, output_path, lang)
+            # Load and process articles
+            data_loader, articles = self.prepare_data([lang], split, max_articles)
+            
+            # Create a flat list of all annotations for easier indexing
+            all_annotations = []
+            for article in articles:
+                for ann in article.annotations:
+                    all_annotations.append((article, ann))
+            
+            with torch.no_grad():
+                for batch in tqdm(data_loader, desc=f"Evaluating {lang}"):
+                    # Get batch data
+                    input_ids = batch["input_ids"].to(self.device)
+                    attention_mask = batch["attention_mask"].to(self.device)
+                    embeddings = batch.get("embeddings", None)
+                    if embeddings is not None:
+                        embeddings = embeddings.to(self.device)
+                    entity_positions = batch["entity_position"].to(self.device)
+                    
+                    # Get predictions
+                    outputs = self.model(
+                        input_ids=input_ids,
+                        attention_mask=attention_mask,
+                        entity_positions=entity_positions,
+                        embeddings=embeddings
+                    )
+                    
+                    # Convert logits to predictions
+                    main_probs = torch.softmax(outputs.main_logits, dim=1)
+                    main_preds = torch.argmax(main_probs, dim=1)
+                    fine_probs = torch.sigmoid(outputs.fine_logits)
+                    
+                    # Debug: Print raw probabilities
+                    logger.info("\nRaw model outputs:")
+                    logger.info(f"Main role probabilities shape: {main_probs.shape}")
+                    logger.info(f"Fine-grained probabilities shape: {fine_probs.shape}")
+                    
+                    # Convert to role labels
+                    for i in range(len(main_preds)):
+                        entity_idx = processed_entities + i
+                        if entity_idx >= len(all_annotations):
+                            continue
+                            
+                        article, entity = all_annotations[entity_idx]
+                        
+                        # Print raw probabilities for this entity
+                        logger.info(f"\nEntity: {entity.entity_mention}")
+                        logger.info("Main role probabilities:")
+                        for role_idx, prob in enumerate(main_probs[i]):
+                            logger.info(f"{self.main_role_map[role_idx]}: {prob.item():.4f}")
+                        
+                        logger.info("Fine-grained role probabilities:")
+                        for role_idx, prob in enumerate(fine_probs[i]):
+                            logger.info(f"{FINE_GRAINED_ROLES[role_idx]}: {prob.item():.4f}")
+                        
+                        # Get main role with highest probability
+                        main_role = self.main_role_map[main_preds[i].item()]
+                        main_prob = main_probs[i, main_preds[i]].item()
+                        
+                        # Get fine-grained roles using direct thresholding
+                        fine_roles = []
+                        threshold = 0.5
+                        
+                        # Get probabilities for all roles
+                        role_probs = []
+                        for role_idx in range(len(FINE_GRAINED_ROLES)):
+                            prob = fine_probs[i, role_idx].item()
+                            if prob > threshold:
+                                role_probs.append((prob, FINE_GRAINED_ROLES[role_idx]))
+                        
+                        # Sort by probability
+                        role_probs.sort(reverse=True)
+                        
+                        # Filter roles based on main role category
+                        if main_role == "Protagonist":
+                            valid_roles = set(FINE_GRAINED_ROLES[:6])
+                        elif main_role == "Antagonist":
+                            valid_roles = set(FINE_GRAINED_ROLES[6:18])
+                        else:  # Innocent
+                            valid_roles = set(FINE_GRAINED_ROLES[18:])
+                        
+                        # Take up to 3 valid roles that are above threshold
+                        for prob, role in role_probs:
+                            if role in valid_roles and len(fine_roles) < 3:
+                                fine_roles.append(role)
+                        
+                        # If no roles above threshold, take highest probability valid role
+                        if not fine_roles:
+                            valid_probs = [(prob, role) for prob, role in role_probs if role in valid_roles]
+                            if valid_probs:
+                                fine_roles = [valid_probs[0][1]]
+                            else:
+                                # Fallback: take highest probability role overall
+                                max_prob_idx = torch.argmax(fine_probs[i]).item()
+                                fine_roles = [FINE_GRAINED_ROLES[max_prob_idx]]
+                        
+                        predictions.append({
+                            "article_id": article.id,
+                            "entity_mention": entity.entity_mention,
+                            "start_offset": entity.start_offset,
+                            "end_offset": entity.end_offset,
+                            "main_role": main_role,
+                            "fine_grained_roles": fine_roles
+                        })
+                        
+                        # Log predictions for debugging
+                        logger.info(f"\nPrediction for {article.id} - {entity.entity_mention}:")
+                        logger.info(f"Main role: {main_role} (prob: {main_prob:.4f})")
+                        logger.info(f"Fine roles: {fine_roles}")
+                        logger.info(f"Top role probs: {role_probs[:5]}")
+                    
+                    processed_entities += len(main_preds)
+            
+            # Save predictions with unique run ID
+            output_path = self._get_predictions_path(output_dir, lang, run_id)
+            self._save_predictions(predictions, output_path)
+            logger.info(f"Saved {len(predictions)} predictions for {lang} to {output_path}")
+            
+            # Run scorer if in dev mode
+            if split == "dev":
+                self._run_scorer(
+                    gold_file=os.path.join(self.config["paths"]["dev_data_dir"], lang, "subtask-1-annotations.txt"),
+                    pred_file=output_path,
+                    lang=lang
+                )
+        
+        logger.info(f"Evaluation completed! Run ID: {run_id}")
     
     def _save_predictions(self, predictions: List[Dict], output_path: str) -> None:
-        """Save predictions to file in the required format."""
-        logger.info(f"Saving {len(predictions)} predictions to {output_path}")
-        
+        """Save predictions in the scorer-compatible format."""
         with open(output_path, 'w', encoding='utf-8') as f:
+            # Write header
+            f.write("article_id\tentity_mention\tstart_offset\tend_offset\tmain_role\tfine_grained_roles\n")
+            
+            # Write predictions
             for pred in predictions:
-                # Format prediction line
+                # Create line with tab-separated values
                 line_parts = [
                     pred["article_id"],
                     pred["entity_mention"],
                     str(pred["start_offset"]),
                     str(pred["end_offset"]),
-                    pred["main_role"]
+                    pred["main_role"],
                 ]
-                
                 # Add fine-grained roles
-                line_parts.extend(pred["fine_roles"])
+                line_parts.extend(pred["fine_grained_roles"])
                 
-                # Write line
-                f.write('\t'.join(line_parts) + '\n')
-                
-                # Log prediction details with confidence scores
-                logger.debug(
-                    f"\nPrediction for {pred['article_id']} - {pred['entity_mention']}:\n"
-                    f"Main role: {pred['main_role']} (confidence: {pred['main_confidence']:.4f})\n"
-                    f"Fine roles: {list(zip(pred['fine_roles'], pred['fine_confidences']))}"
-                )
+                # Join with tabs and write
+                line = "\t".join(line_parts)
+                f.write(line + "\n")
     
     def _run_scorer(self, gold_file: str, pred_file: str, lang: str) -> None:
         """Run the official scorer on predictions."""

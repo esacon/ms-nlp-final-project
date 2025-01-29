@@ -242,3 +242,10 @@ def get_role_for_subrole(taxonomy: RoleTaxonomy, subrole: str) -> Optional[MainR
         if subrole in subroles:
             return role
     return None
+
+
+def get_valid_fine_roles(taxonomy: RoleTaxonomy, main_role: MainRole) -> List[FineGrainedRole]:
+    """
+    Get valid fine-grained roles for a given main role.
+    """
+    return taxonomy[main_role]

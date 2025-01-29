@@ -41,7 +41,7 @@ class EntityDataset(Dataset):
     def __init__(
         self,
         features: List[Dict],
-        labels: Optional[Dict] = None,
+        labels: Optional[List[Dict]] = None,
         taxonomy: Optional[RoleTaxonomy] = None
     ):
         self.features = features
@@ -50,34 +50,73 @@ class EntityDataset(Dataset):
         self.num_fine_labels = len(get_all_subroles(self.taxonomy))
         self.logger = get_logger(__name__)
         
-        # Validate that if we have labels, we have them for all features
-        if self.labels is not None and len(self.labels["main_labels"]) != len(self.features):
-            self.logger.warning(
-                f"Number of labels ({len(self.labels['main_labels'])}) doesn't match number of features ({len(self.features)}). "
-                "Labels will be ignored."
-            )
-            self.labels = None
+        # Find max entity length for padding
+        self.max_entity_length = max(
+            len(feature["entity_embeddings"]) 
+            for feature in features 
+            if "entity_embeddings" in feature
+        )
+        
+        # Convert labels to tensors if provided
+        if self.labels is not None:
+            # Create tensors for main and fine-grained labels
+            self.main_labels = torch.tensor([label["main_role"] for label in labels], dtype=torch.long)
+            
+            # Create multi-hot tensor for fine-grained labels
+            self.fine_labels = torch.zeros((len(labels), self.num_fine_labels), dtype=torch.float)
+            for i, label in enumerate(labels):
+                for role_idx in label["fine_roles"]:
+                    self.fine_labels[i, role_idx] = 1.0
+            
+            # Validate label counts
+            if len(self.main_labels) != len(self.features):
+                self.logger.warning(
+                    f"Number of labels ({len(self.main_labels)}) doesn't match number of features ({len(self.features)}). "
+                    "Labels will be ignored."
+                )
+                self.labels = None
+                self.main_labels = None
+                self.fine_labels = None
 
     def __len__(self) -> int:
         return len(self.features)
+
+    def pad_embeddings(self, embeddings: torch.Tensor) -> torch.Tensor:
+        """Pad entity embeddings to max_entity_length."""
+        current_length = embeddings.size(0)
+        if current_length < self.max_entity_length:
+            padding = torch.zeros(
+                (self.max_entity_length - current_length, embeddings.size(1)),
+                dtype=embeddings.dtype,
+                device=embeddings.device
+            )
+            return torch.cat([embeddings, padding], dim=0)
+        return embeddings[:self.max_entity_length]
 
     def __getitem__(self, idx: int) -> Dict:
         """Get a single example from the dataset"""
         if idx >= len(self.features):
             raise IndexError(f"Index {idx} out of range for dataset with {len(self.features)} items")
             
+        # Convert base features to tensors
         item = {
-            "input_ids": self.features[idx]["input_ids"],
-            "attention_mask": self.features[idx]["attention_mask"],
-            "entity_position": self.features[idx]["entity_position"],
-            "embeddings": self.features[idx].get("embeddings", None)
+            "input_ids": torch.tensor(self.features[idx]["input_ids"], dtype=torch.long),
+            "attention_mask": torch.tensor(self.features[idx]["attention_mask"], dtype=torch.long),
+            "entity_position": torch.tensor(self.features[idx]["entity_position"], dtype=torch.long)
         }
+        
+        # Handle entity embeddings with padding
+        if "entity_embeddings" in self.features[idx]:
+            embeddings = torch.tensor(self.features[idx]["entity_embeddings"], dtype=torch.float)
+            item["embeddings"] = self.pad_embeddings(embeddings)
+        else:
+            item["embeddings"] = None
 
         # Only add labels if they exist and index is valid
         if self.labels is not None:
             try:
-                item["main_labels"] = self.labels["main_labels"][idx]
-                item["fine_labels"] = self.labels["fine_labels"][idx]
+                item["main_labels"] = self.main_labels[idx]
+                item["fine_labels"] = self.fine_labels[idx]
             except Exception as e:
                 self.logger.warning(f"Error processing labels for index {idx}: {e}")
                 pass
@@ -306,7 +345,8 @@ class DataLoader:
                 try:
                     # Extract features using preprocessed text
                     feature = feature_extractor.extract_features(
-                        text=article.preprocessed_text or article.text,  # Fallback to original if needed
+                        text=article.preprocessed_text or article.text,
+                        entity_text=annotation.entity_mention,
                         start_offset=annotation.start_offset,
                         end_offset=annotation.end_offset
                     )

@@ -80,9 +80,12 @@ def test_model_predictions(model, batch, tokenizer):
             
             # If labels are available, show ground truth
             if 'main_labels' in batch and 'fine_labels' in batch:
-                logger.info(f"True main role: {main_role_map[batch['main_labels'][i].item()]}")
+                true_main_role = batch['main_labels'][i].item()
+                true_fine_roles = batch['fine_labels'][i]
+                
+                logger.info(f"True main role: {main_role_map[true_main_role]}")
                 true_fine_roles = [
-                    fine_role_map[j] for j, is_role in enumerate(batch['fine_labels'][i])
+                    fine_role_map[j] for j, is_role in enumerate(true_fine_roles)
                     if is_role.item() == 1
                 ]
                 logger.info(f"True fine-grained roles: {true_fine_roles}")
@@ -98,7 +101,7 @@ def main():
         
         # Initialize feature extractor with base model
         logger.info("Loading base model and tokenizer...")
-        base_model_name = "roberta-base"  # Make sure this matches what we use in the feature extractor
+        base_model_name = "xlm-roberta-base"
         feature_extractor = FeatureExtractor(
             max_length=config["model"]["max_length"],
             context_window=config["model"]["context_window"],
