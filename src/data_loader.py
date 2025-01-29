@@ -127,12 +127,12 @@ class EntityDataset(Dataset):
 class DataLoader:
     """Class for loading and processing the dataset"""
 
-    def __init__(self, config: Dict):
+    def __init__(self, config: Dict, max_articles: int = None):
         self.config = config
         self.logger = get_logger(__name__)
         self.taxonomy = load_taxonomy()
         self._init_role_mappings()
-
+        self.max_articles = max_articles
         # Initialize preprocessor with config
         self.preprocessor = Preprocessor()
         self.preprocessing_config = config.get("preprocessing", {
@@ -288,6 +288,8 @@ class DataLoader:
             
             for filename in pbar:
                 article_id = filename
+                if self.max_articles and len(articles) >= self.max_articles:
+                    break
                 
                 # Read article text
                 with open(os.path.join(data_path, filename), "r", encoding="utf-8") as f:
@@ -341,6 +343,9 @@ class DataLoader:
         pbar = tqdm(total=total_entities, desc="Extracting features", unit="entities")
         
         for article in articles:
+            if self.max_articles and len(features) >= self.max_articles:
+                break
+            
             for annotation in article.annotations:
                 try:
                     # Extract features using preprocessed text
