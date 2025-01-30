@@ -41,3 +41,6 @@ training:
 languages:
   supported: ["EN", "PT"]
   default: "EN"
+
+testing:
+  max_articles: 3

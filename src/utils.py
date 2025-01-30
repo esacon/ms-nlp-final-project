@@ -1,10 +1,23 @@
+import os
 import logging
-from typing import List, Set, Dict
+import yaml
+from typing import Dict
 from pathlib import Path
 import torch
 import random
 import numpy as np
 from transformers import RobertaTokenizer
+
+
+def load_config(config_file: str = "configs.yaml") -> Dict:
+    """Load configuration from yaml file."""
+    project_root = str(Path(__file__).parent.parent)
+    config_path = os.path.join(project_root, "src", config_file)
+    try:
+        with open(config_path, 'r') as f:
+            return yaml.safe_load(f)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Configuration file {config_file} not found.")
 
 
 def get_logger(name: str, level: str = "INFO") -> logging.Logger:

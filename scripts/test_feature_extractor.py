@@ -9,10 +9,9 @@ from typing import Dict, Any
 project_root = str(Path(__file__).parent.parent)
 sys.path.append(project_root)
 
-from src.utils import get_logger
+from src.utils import get_logger, load_config
 from src.feature_extraction import FeatureExtractor
 from src.data_loader import DataLoader
-import yaml
 
 logger = get_logger(__name__)
 console = Console()
@@ -89,9 +88,7 @@ def main():
     print("Initializing Pipeline Components")
     print("─" * 100)
     
-    config_path = "src/configs.yaml"
-    with open(config_path, "r") as file:
-        config = yaml.safe_load(file)
+    config = load_config()
 
     # Initialize feature extractor with model and tokenizer
     feature_extractor = FeatureExtractor()
@@ -108,7 +105,7 @@ def main():
         print("─" * 100)
 
         # Load articles
-        articles = data_loader.load_articles("data", lang)
+        articles = data_loader.load_articles(config["paths"]["train_data_dir"], lang)
         print(f"\nLoaded {len(articles)} articles for {lang}")
 
         # Process first few articles with annotations
