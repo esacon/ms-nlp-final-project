@@ -195,7 +195,7 @@ class DataLoader:
         except (ValueError, TaxonomyError) as e:
             raise ValueError(f"Error in {filename}: {str(e)}")
 
-    def load_articles(self, data_dir: str, language: str, split: str = "train") -> List[Article]:
+    def load_articles(self, data_dir: str, split: str = "train", language: str = "EN") -> List[Article]:
         """Load articles from the data directory
 
         Args:

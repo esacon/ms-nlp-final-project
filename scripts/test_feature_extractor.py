@@ -111,7 +111,11 @@ def main():
         print("─" * 100)
 
         # Load articles
-        articles = data_loader.load_articles(config["paths"]["train_data_dir"], lang)
+        articles = data_loader.load_articles(
+            config["paths"]["train_data_dir"],
+            split="train",
+            language=lang
+        )
         print(f"\nLoaded {len(articles)} articles for {lang}")
 
         # Process first few articles with annotations

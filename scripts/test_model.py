@@ -13,8 +13,7 @@ from src.model import EntityRoleClassifier
 from src.utils import get_logger, load_config
 from src.taxonomy import (
     get_main_roles, get_fine_roles,
-    get_role_indices, get_fine_role_indices,
-    get_main_role_indices, get_all_fine_roles
+    get_main_role_indices
 )
 
 
@@ -55,12 +54,11 @@ def test_model_predictions(model: EntityRoleClassifier, batch: Dict[str, Any], t
         # Get predictions from logits
         main_preds = torch.argmax(outputs.main_logits, dim=1)
         fine_probs = torch.sigmoid(outputs.fine_logits)
-        fine_preds = (fine_probs > threshold).float()
 
         # Get role mappings from taxonomy
         main_role_indices = get_main_role_indices()
         main_role_map = {idx: role for role, idx in main_role_indices.items()}
-        
+
         # Create valid role indices mapping like in model.py
         valid_role_indices = {}
         for main_role in get_main_roles():
@@ -70,19 +68,22 @@ def test_model_predictions(model: EntityRoleClassifier, batch: Dict[str, Any], t
             for role in valid_fine_roles:
                 if role in model.fine_role_indices:
                     # Adjust index to be relative to fine-grained space
-                    fine_idx = model.fine_role_indices[role] - len(main_role_indices)
+                    fine_idx = model.fine_role_indices[role] - \
+                        len(main_role_indices)
                     valid_indices.append(fine_idx)
             valid_role_indices[main_idx] = sorted(valid_indices)
 
         # Print predictions for each entity in batch
         for i in range(len(main_preds)):
             # Get article ID and entity mention
-            article_id = batch.get('article_id', ['Unknown ID'] * len(input_ids))[i]
-            entity_mention = batch.get('entity_mention', [''] * len(input_ids))[i]
-            
+            article_id = batch.get(
+                'article_id', ['Unknown ID'] * len(input_ids))[i]
+            entity_mention = batch.get(
+                'entity_mention', [''] * len(input_ids))[i]
+
             logger.info(f"\nArticle ID: {article_id}")
             logger.info(f"Entity mention: {entity_mention}")
-            
+
             # Get original text
             input_tokens = tokenizer.convert_ids_to_tokens(
                 input_ids[i, 0] if input_ids.dim() == 3 else input_ids[i])
@@ -94,7 +95,7 @@ def test_model_predictions(model: EntityRoleClassifier, batch: Dict[str, Any], t
                 input_tokens[start:end+1])
 
             logger.info(f"\nEntity: {entity_text}")
-            
+
             # Get main role prediction
             main_pred_idx = main_preds[i].item()
             main_role = main_role_map[main_pred_idx]
@@ -103,22 +104,23 @@ def test_model_predictions(model: EntityRoleClassifier, batch: Dict[str, Any], t
             # Get fine-grained roles using valid_role_indices
             valid_indices = valid_role_indices[main_pred_idx]
             valid_probs = fine_probs[i, valid_indices]
-            
+
             # Get top predictions above threshold
             k = min(2, len(valid_indices))
             top_values, top_local_indices = torch.topk(valid_probs, k=k)
-            
+
             # Convert local indices to fine-grained space indices
             predicted_fine_roles = []
             for local_idx, value in enumerate(top_values):
                 if value >= threshold:
-                    fine_idx = valid_indices[top_local_indices[local_idx].item()]
+                    fine_idx = valid_indices[top_local_indices[local_idx].item(
+                    )]
                     # Convert back to role name using model's mapping
                     for role, idx in model.fine_role_indices.items():
                         if (idx - len(main_role_indices)) == fine_idx:
                             predicted_fine_roles.append(role)
                             break
-            
+
             # Always take at least one role (highest probability)
             if not predicted_fine_roles:
                 max_local_idx = valid_probs.argmax().item()
@@ -127,8 +129,9 @@ def test_model_predictions(model: EntityRoleClassifier, batch: Dict[str, Any], t
                     if (idx - len(main_role_indices)) == fine_idx:
                         predicted_fine_roles.append(role)
                         break
-            
-            logger.info(f"Predicted fine-grained roles: {predicted_fine_roles}")
+
+            logger.info(
+                f"Predicted fine-grained roles: {predicted_fine_roles}")
 
             # Print probabilities for debugging
             logger.debug("Fine-grained role probabilities:")
@@ -145,7 +148,7 @@ def test_model_predictions(model: EntityRoleClassifier, batch: Dict[str, Any], t
                 true_main_idx = batch['main_labels'][i].item()
                 true_main_role = main_role_map[true_main_idx]
                 logger.info(f"True main role: {true_main_role}")
-                
+
                 # Get true fine roles
                 true_fine_roles = []
                 # The labels are already in fine-grained space (0 to num_fine_roles-1)
@@ -207,7 +210,10 @@ def main():
 
             # Load articles
             articles = data_loader.load_articles(
-                config["paths"]["train_data_dir"], language)
+                config["paths"]["train_data_dir"],
+                split="train",
+                language=language
+            )
             logger.info(
                 f"Loaded {len(articles)} sample articles for {language}")
 
