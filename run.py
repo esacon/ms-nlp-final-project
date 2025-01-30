@@ -1,99 +1,95 @@
-import argparse
 import os
-import sys
-from pathlib import Path
-
-# Add project root to Python path
-project_root = str(Path(__file__).parent)
-sys.path.append(project_root)
-
-from src.train_pipeline import run_training, run_evaluation
+import argparse
+from src.pipeline import Pipeline
 from src.utils import get_logger
 
 logger = get_logger(__name__)
 
-def main():
+
+def parse_args():
+    """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
-        description="Train and evaluate entity role classification model"
-    )
-    
+        description="Entity Framing Hierarchical Model")
     parser.add_argument(
         "--task",
-        type=str,
-        required=True,
         choices=["train", "evaluate"],
-        help="Task to perform: train or evaluate"
+        required=True,
+        help="Task to perform: train or evaluate",
     )
-    
-    parser.add_argument(
-        "--languages",
-        type=str,
-        default="EN,PT",
-        help="Languages to process (comma-separated). Example: EN,PT"
-    )
-    
     parser.add_argument(
         "--config",
         type=str,
         default="src/configs.yaml",
-        help="Path to configuration file"
+        help="Path to the configuration file",
     )
-    
     parser.add_argument(
         "--output_dir",
         type=str,
-        default="models" if "--task" == "train" else "predictions",
-        help="Directory to save outputs (models or predictions)"
+        default="models",
+        help="Directory to save the trained model or evaluation results",
     )
-    
-    parser.add_argument(
-        "-f",
-        "--model_path",
-        type=str,
-        help="Path to model checkpoint (required for evaluation)"
-    )
-
     parser.add_argument(
         "--max_articles",
         type=int,
         default=None,
-        help="Maximum number of articles to process (for testing)"
+        help="Maximum number of articles to process (for debugging purposes)",
     )
+    parser.add_argument(
+        "--languages",
+        nargs="+",
+        default=["EN", "PT"],
+        help="Languages to process (e.g., EN PT)",
+    )
+    parser.add_argument(
+        "--checkpoint",
+        type=str,
+        default=None,
+        help="Path to model checkpoint for evaluation",
+    )
+    return parser.parse_args()
 
-    args = parser.parse_args()
-    
-    # Convert languages string to list
-    languages = [lang.strip() for lang in args.languages.split(",")]
-    
-    try:
-        # Make sure the output directory exists
-        os.makedirs(args.output_dir, exist_ok=True)
-        
-        if args.task == "train":
-            logger.info(f"Starting training for languages: {languages}")
-            run_training(
-                config_path=args.config,
-                languages=languages,
-                max_articles=args.max_articles
-            )
-            
-        elif args.task == "evaluate":
-            if not args.model_path:
-                raise ValueError("Model path (-f) is required for evaluation")
-                
-            logger.info(f"Starting evaluation for languages: {languages}")
-            run_evaluation(
-                config_path=args.config,
-                model_path=args.model_path,
-                languages=languages,
-                output_dir=args.output_dir,
-                split="test",
-                max_articles=args.max_articles
-            )
-            
-    except Exception as e:
-        logger.error(f"Error in {args.task}: {str(e)}", exc_info=True)
-        sys.exit(1)
+
+def validate_config(config_path):
+    """Validate the configuration file."""
+    if not os.path.exists(config_path):
+        raise FileNotFoundError(f"Configuration file not found: {config_path}")
+
+
+def main():
+    args = parse_args()
+
+    # Validate the configuration file
+    config_path = os.path.join(os.path.dirname(__file__), args.config)
+    validate_config(config_path)
+
+    # Initialize the pipeline
+    pipeline = Pipeline(config_path)
+
+    # Load checkpoint if provided
+    if args.checkpoint:
+        logger.info(f"Loading checkpoint from {args.checkpoint}")
+        pipeline.load_checkpoint(args.checkpoint)
+
+    if args.task == "train":
+        logger.info("Starting training task...")
+        pipeline.train(
+            languages=args.languages,
+            max_articles=args.max_articles
+        )
+
+    elif args.task == "evaluate":
+        logger.info("Starting evaluation task...")
+        pipeline.evaluate(
+            languages=args.languages,
+            output_dir=args.output_dir,
+            split="test" if not args.max_articles else "dev",
+            max_articles=args.max_articles
+        )
+
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        logger.error(f"An error occurred: {e}")
+        raise

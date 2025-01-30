@@ -48,11 +48,11 @@ class EntityRoleClassifier(torch.nn.Module):
         self.role_indices = get_role_indices()
         self.fine_role_indices = get_fine_role_indices()
         self.main_role_indices = get_main_role_indices()
-        
+
         # Model parameters
         self.threshold = config["model"]["threshold"]
         self.l1_regularization = config["model"]["l1_regularization"]
-        
+
         # Create valid role indices for each main role index
         self.valid_role_indices = {}
         for main_role in get_main_roles():

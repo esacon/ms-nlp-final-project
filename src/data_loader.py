@@ -56,6 +56,12 @@ class EntityDataset(Dataset):
         self.fine_role_indices = fine_role_indices
         self.main_role_indices = main_role_indices
 
+        # Find max sequence length for padding
+        self.max_seq_length = max(
+            len(feature["input_ids"])
+            for feature in features
+        )
+
         # Find max entity length for padding
         self.max_entity_length = max(
             len(feature["entity_embeddings"])
@@ -73,11 +79,10 @@ class EntityDataset(Dataset):
                 )
 
                 # Create multi-hot tensor for fine-grained labels
-                self.fine_labels = torch.zeros(
-                    (len(self.labels), self.num_fine_labels), dtype=torch.float)
-                for i, label in enumerate(self.labels):
-                    for role_idx in label["fine_roles"]:
-                        self.fine_labels[i, role_idx] = 1.0
+                self.fine_labels = torch.stack([
+                    torch.tensor(label["fine_roles"], dtype=torch.float)
+                    for label in self.labels
+                ])
 
                 # Validate label counts
                 if len(self.main_labels) != len(self.features):
@@ -97,6 +102,13 @@ class EntityDataset(Dataset):
     def __len__(self) -> int:
         return len(self.features)
 
+    def pad_sequence(self, sequence: List[int], max_length: int, pad_value: int = 0) -> torch.Tensor:
+        """Pad a sequence to max_length."""
+        if len(sequence) > max_length:
+            return torch.tensor(sequence[:max_length], dtype=torch.long)
+        padding = [pad_value] * (max_length - len(sequence))
+        return torch.tensor(sequence + padding, dtype=torch.long)
+
     def pad_embeddings(self, embeddings: torch.Tensor) -> torch.Tensor:
         """Pad entity embeddings to max_entity_length."""
         current_length = embeddings.size(0)
@@ -110,37 +122,50 @@ class EntityDataset(Dataset):
         return embeddings[:self.max_entity_length]
 
     def __getitem__(self, idx: int) -> Dict:
-        """Get a single example from the dataset"""
+        """Get a single example from the dataset with consistent padding."""
         if idx >= len(self.features):
             raise IndexError(
                 f"Index {idx} out of range for dataset with {len(self.features)} items")
 
-        # Convert base features to tensors
+        # Get features for this example
+        features = self.features[idx]
+
+        # Pad input_ids and attention_mask to max_seq_length
+        input_ids = self.pad_sequence(features["input_ids"], self.max_seq_length)
+        attention_mask = self.pad_sequence(features["attention_mask"], self.max_seq_length, 0)
+
+        # Create item dictionary with padded tensors
         item = {
-            "input_ids": torch.tensor(self.features[idx]["input_ids"], dtype=torch.long),
-            "attention_mask": torch.tensor(self.features[idx]["attention_mask"], dtype=torch.long),
-            "entity_position": torch.tensor(self.features[idx]["entity_position"], dtype=torch.long),
-            "article_id": self.features[idx].get("article_id", "unknown"),
-            "entity_mention": self.features[idx].get("entity_mention", "")
+            "input_ids": input_ids,
+            "attention_mask": attention_mask,
+            "entity_position": torch.tensor(features["entity_position"], dtype=torch.long),
+            "article_id": features.get("article_id", "unknown"),
+            "entity_mention": features.get("entity_mention", "")
         }
 
         # Handle entity embeddings with padding
-        if "entity_embeddings" in self.features[idx]:
-            embeddings = torch.tensor(
-                self.features[idx]["entity_embeddings"], dtype=torch.float)
+        if "entity_embeddings" in features:
+            embeddings = torch.tensor(features["entity_embeddings"], dtype=torch.float)
             item["embeddings"] = self.pad_embeddings(embeddings)
         else:
             item["embeddings"] = None
 
         # Only add labels if they exist and index is valid
-        if self.labels is not None:
+        if self.labels is not None and self.main_labels is not None and self.fine_labels is not None:
             try:
+                # Store individual labels for metrics calculation
                 item["main_labels"] = self.main_labels[idx]
                 item["fine_labels"] = self.fine_labels[idx]
+                
+                # Create one-hot encoding for main label
+                main_one_hot = torch.zeros(len(self.main_role_indices))
+                main_one_hot[self.main_labels[idx]] = 1.0
+                
+                # Combine labels for model input
+                item["labels"] = torch.cat([main_one_hot, self.fine_labels[idx]], dim=0)
             except Exception as e:
                 self.logger.warning(
                     f"Error processing labels for index {idx}: {e}")
-                pass
 
         return item
 
@@ -351,6 +376,10 @@ class DataLoader:
         labels = []
         has_labels = any(len(article.annotations) > 0 for article in articles)
 
+        # Get total number of fine-grained roles
+        num_fine_roles = get_fine_roles_count()
+        self.logger.debug(f"Total number of fine-grained roles: {num_fine_roles}")
+
         # Process each article
         total_entities = sum(len(article.annotations) for article in articles)
         pbar = tqdm(total=total_entities,
@@ -379,17 +408,18 @@ class DataLoader:
                         # Get main role index
                         main_role_idx = self.main_role_indices[annotation.main_role]
                         
-                        # Get fine role indices adjusted to fine-grained space
-                        fine_role_indices = []
+                        # Create multi-hot vector for fine-grained roles
+                        fine_role_vector = torch.zeros(num_fine_roles)
                         for role in annotation.fine_grained_roles:
                             if role in self.fine_role_indices:
-                                # Adjust index to be relative to fine-grained space
+                                # Get index in fine-grained space
                                 fine_idx = self.fine_role_indices[role] - len(self.main_role_indices)
-                                fine_role_indices.append(fine_idx)
+                                if 0 <= fine_idx < num_fine_roles:  # Ensure index is valid
+                                    fine_role_vector[fine_idx] = 1
                         
                         label = {
                             "main_role": main_role_idx,
-                            "fine_roles": fine_role_indices
+                            "fine_roles": fine_role_vector.tolist()
                         }
                         labels.append(label)
 
