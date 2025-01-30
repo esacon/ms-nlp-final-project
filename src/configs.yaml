@@ -9,6 +9,9 @@ model:
   dropout_prob: 0.1
   attention_dropout: 0.1
   context_window: 128
+  threshold: 0.6
+  l1_regularization: 0.01
+  special_tokens: ['[ENT]', '[/ENT]']
 
 preprocessing:
   min_words_per_line: 4

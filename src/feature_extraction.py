@@ -10,7 +10,8 @@ logger = logging.getLogger(__name__)
 
 
 class FeatureExtractor:
-    def __init__(self, max_length: int = 512, context_window: int = 128, batch_size: int = 32, preprocessing_config: Dict = None):
+    def __init__(self, special_tokens: List[str], max_length: int = 512, context_window: int = 128, batch_size: int = 32, preprocessing_config: Dict = None):
+        self.special_tokens = special_tokens
         self.max_length = max_length
         self.context_window = context_window
         self.batch_size = batch_size
@@ -30,7 +31,6 @@ class FeatureExtractor:
             "merge_paragraphs": True,
             "clean_text": True
         }
-        self.special_tokens = ['[ENT]', '[/ENT]']
 
     def set_tokenizer_and_model(self, tokenizer, model):
         """Set the tokenizer and model with added special tokens."""

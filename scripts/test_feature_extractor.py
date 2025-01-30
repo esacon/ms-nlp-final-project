@@ -91,7 +91,13 @@ def main():
     config = load_config()
 
     # Initialize feature extractor with model and tokenizer
-    feature_extractor = FeatureExtractor()
+    feature_extractor = FeatureExtractor(
+        special_tokens=config["model"]["special_tokens"],
+        max_length=config["model"]["max_length"],
+        context_window=config["model"]["context_window"],
+        batch_size=config["model"]["batch_size"],
+        preprocessing_config=config["preprocessing"]
+    )
     tokenizer = XLMRobertaTokenizerFast.from_pretrained(config["model"]["name"])
     model = XLMRobertaModel.from_pretrained(config["model"]["name"])
     feature_extractor.set_tokenizer_and_model(tokenizer, model)
