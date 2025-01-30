@@ -11,6 +11,11 @@ from src.data_loader import DataLoader
 from src.feature_extraction import FeatureExtractor
 from src.model import EntityRoleClassifier
 from src.utils import get_logger, load_config
+from src.taxonomy import (
+    get_main_roles, get_fine_roles,
+    get_role_indices, get_fine_role_indices,
+    get_main_role_indices, get_all_fine_roles
+)
 
 
 logger = get_logger(__name__)
@@ -33,6 +38,7 @@ def test_model_predictions(model: EntityRoleClassifier, batch: Dict[str, Any], t
         input_ids = batch['input_ids']
         attention_mask = batch['attention_mask']
         entity_positions = batch['entity_position']
+        article_ids = batch.get('article_ids', ['Unknown ID'] * len(input_ids))
 
         # Print shapes for debugging
         logger.debug(f"Input shapes:")
@@ -51,17 +57,32 @@ def test_model_predictions(model: EntityRoleClassifier, batch: Dict[str, Any], t
         fine_probs = torch.sigmoid(outputs.fine_logits)
         fine_preds = (fine_probs > threshold).float()
 
-        # Map predictions to labels
-        main_role_map = {0: "Protagonist", 1: "Antagonist", 2: "Innocent"}
-        fine_role_map = [
-            "Guardian", "Martyr", "Peacemaker", "Rebel", "Underdog", "Virtuous",
-            "Instigator", "Conspirator", "Tyrant", "Foreign Adversary", "Traitor",
-            "Spy", "Saboteur", "Corrupt", "Incompetent", "Terrorist", "Deceiver",
-            "Bigot", "Forgotten", "Exploited", "Victim", "Scapegoat"
-        ]
+        # Get role mappings from taxonomy
+        main_role_indices = get_main_role_indices()
+        main_role_map = {idx: role for role, idx in main_role_indices.items()}
+        
+        # Create valid role indices mapping like in model.py
+        valid_role_indices = {}
+        for main_role in get_main_roles():
+            main_idx = main_role_indices[main_role]
+            valid_fine_roles = get_fine_roles(main_role)
+            valid_indices = []
+            for role in valid_fine_roles:
+                if role in model.fine_role_indices:
+                    # Adjust index to be relative to fine-grained space
+                    fine_idx = model.fine_role_indices[role] - len(main_role_indices)
+                    valid_indices.append(fine_idx)
+            valid_role_indices[main_idx] = sorted(valid_indices)
 
         # Print predictions for each entity in batch
         for i in range(len(main_preds)):
+            # Get article ID and entity mention
+            article_id = batch.get('article_id', ['Unknown ID'] * len(input_ids))[i]
+            entity_mention = batch.get('entity_mention', [''] * len(input_ids))[i]
+            
+            logger.info(f"\nArticle ID: {article_id}")
+            logger.info(f"Entity mention: {entity_mention}")
+            
             # Get original text
             input_tokens = tokenizer.convert_ids_to_tokens(
                 input_ids[i, 0] if input_ids.dim() == 3 else input_ids[i])
@@ -73,28 +94,70 @@ def test_model_predictions(model: EntityRoleClassifier, batch: Dict[str, Any], t
                 input_tokens[start:end+1])
 
             logger.info(f"\nEntity: {entity_text}")
-            logger.info(
-                f"Predicted main role: {main_role_map[main_preds[i].item()]}")
+            
+            # Get main role prediction
+            main_pred_idx = main_preds[i].item()
+            main_role = main_role_map[main_pred_idx]
+            logger.info(f"Predicted main role: {main_role}")
 
-            # Get fine-grained roles
-            predicted_fine_roles = [
-                fine_role_map[j] for j, is_role in enumerate(fine_preds[i])
-                if is_role.item() == 1
-            ]
-            logger.info(
-                f"Predicted fine-grained roles: {predicted_fine_roles}")
+            # Get fine-grained roles using valid_role_indices
+            valid_indices = valid_role_indices[main_pred_idx]
+            valid_probs = fine_probs[i, valid_indices]
+            
+            # Get top predictions above threshold
+            k = min(2, len(valid_indices))
+            top_values, top_local_indices = torch.topk(valid_probs, k=k)
+            
+            # Convert local indices to fine-grained space indices
+            predicted_fine_roles = []
+            for local_idx, value in enumerate(top_values):
+                if value >= threshold:
+                    fine_idx = valid_indices[top_local_indices[local_idx].item()]
+                    # Convert back to role name using model's mapping
+                    for role, idx in model.fine_role_indices.items():
+                        if (idx - len(main_role_indices)) == fine_idx:
+                            predicted_fine_roles.append(role)
+                            break
+            
+            # Always take at least one role (highest probability)
+            if not predicted_fine_roles:
+                max_local_idx = valid_probs.argmax().item()
+                fine_idx = valid_indices[max_local_idx]
+                for role, idx in model.fine_role_indices.items():
+                    if (idx - len(main_role_indices)) == fine_idx:
+                        predicted_fine_roles.append(role)
+                        break
+            
+            logger.info(f"Predicted fine-grained roles: {predicted_fine_roles}")
+
+            # Print probabilities for debugging
+            logger.debug("Fine-grained role probabilities:")
+            for j, prob in enumerate(valid_probs):
+                fine_idx = valid_indices[j]
+                for role, idx in model.fine_role_indices.items():
+                    if (idx - len(main_role_indices)) == fine_idx:
+                        if prob > 0.3:  # Only show significant probabilities
+                            logger.debug(f"{role}: {prob.item():.4f}")
+                        break
 
             # If labels are available, show ground truth
             if 'main_labels' in batch and 'fine_labels' in batch:
-                true_main_role = batch['main_labels'][i].item()
-                true_fine_roles = batch['fine_labels'][i]
-
-                logger.info(
-                    f"True main role: {main_role_map[true_main_role]}")
-                true_fine_roles = [
-                    fine_role_map[j] for j, is_role in enumerate(true_fine_roles)
-                    if is_role.item() == 1
-                ]
+                true_main_idx = batch['main_labels'][i].item()
+                true_main_role = main_role_map[true_main_idx]
+                logger.info(f"True main role: {true_main_role}")
+                
+                # Get true fine roles
+                true_fine_roles = []
+                # The labels are already in fine-grained space (0 to num_fine_roles-1)
+                for j, is_role in enumerate(batch['fine_labels'][i]):
+                    if is_role.item() == 1:
+                        # Convert from fine-grained space index to role name
+                        for role, idx in model.fine_role_indices.items():
+                            # Convert global index to fine-grained space
+                            fine_idx = idx - len(main_role_indices)
+                            if fine_idx == j:
+                                true_fine_roles.append(role)
+                                break
                 logger.info(f"True fine-grained roles: {true_fine_roles}")
 
 

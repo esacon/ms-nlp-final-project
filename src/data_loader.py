@@ -119,7 +119,9 @@ class EntityDataset(Dataset):
         item = {
             "input_ids": torch.tensor(self.features[idx]["input_ids"], dtype=torch.long),
             "attention_mask": torch.tensor(self.features[idx]["attention_mask"], dtype=torch.long),
-            "entity_position": torch.tensor(self.features[idx]["entity_position"], dtype=torch.long)
+            "entity_position": torch.tensor(self.features[idx]["entity_position"], dtype=torch.long),
+            "article_id": self.features[idx].get("article_id", "unknown"),
+            "entity_mention": self.features[idx].get("entity_mention", "")
         }
 
         # Handle entity embeddings with padding
@@ -367,17 +369,27 @@ class DataLoader:
                         start_offset=annotation.start_offset,
                         end_offset=annotation.end_offset
                     )
+                    # Add article ID to features
+                    feature["article_id"] = article.id
+                    feature["entity_mention"] = annotation.entity_mention
                     features.append(feature)
 
                     # Prepare labels if available
                     if has_labels and annotation.main_role and annotation.fine_grained_roles:
+                        # Get main role index
+                        main_role_idx = self.main_role_indices[annotation.main_role]
+                        
+                        # Get fine role indices adjusted to fine-grained space
+                        fine_role_indices = []
+                        for role in annotation.fine_grained_roles:
+                            if role in self.fine_role_indices:
+                                # Adjust index to be relative to fine-grained space
+                                fine_idx = self.fine_role_indices[role] - len(self.main_role_indices)
+                                fine_role_indices.append(fine_idx)
+                        
                         label = {
-                            "main_role": self.main_role_indices[annotation.main_role],
-                            "fine_roles": [
-                                self.fine_role_indices[role]
-                                for role in annotation.fine_grained_roles
-                                if role in self.fine_role_indices
-                            ]
+                            "main_role": main_role_idx,
+                            "fine_roles": fine_role_indices
                         }
                         labels.append(label)
 
