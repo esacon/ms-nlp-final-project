@@ -10,7 +10,8 @@ from src.taxonomy import (
     validate_roles, is_valid_main_role,
     get_fine_roles_count,
     get_role_indices, get_fine_role_indices,
-    get_main_role_indices, TaxonomyError
+    get_main_role_indices, TaxonomyError,
+    get_fine_roles
 )
 from src.preprocessing import Preprocessor
 
@@ -69,7 +70,6 @@ class EntityDataset(Dataset):
             if "entity_embeddings" in feature
         )
 
-        # Convert labels to tensors if provided
         if self.labels is not None:
             try:
                 # Create tensors for main and fine-grained labels
@@ -378,8 +378,7 @@ class DataLoader:
 
         # Get total number of fine-grained roles
         num_fine_roles = get_fine_roles_count()
-        self.logger.debug(f"Total number of fine-grained roles: {num_fine_roles}")
-
+        
         # Process each article
         total_entities = sum(len(article.annotations) for article in articles)
         pbar = tqdm(total=total_entities,
@@ -408,14 +407,16 @@ class DataLoader:
                         # Get main role index
                         main_role_idx = self.main_role_indices[annotation.main_role]
                         
+                        # Get valid fine roles for this main role
+                        valid_fine_roles = get_fine_roles(annotation.main_role)
+                        
                         # Create multi-hot vector for fine-grained roles
                         fine_role_vector = torch.zeros(num_fine_roles)
                         for role in annotation.fine_grained_roles:
-                            if role in self.fine_role_indices:
-                                # Get index in fine-grained space
+                            # Only use roles that belong to this main role's category
+                            if role in valid_fine_roles and role in self.fine_role_indices:
                                 fine_idx = self.fine_role_indices[role] - len(self.main_role_indices)
-                                if 0 <= fine_idx < num_fine_roles:  # Ensure index is valid
-                                    fine_role_vector[fine_idx] = 1
+                                fine_role_vector[fine_idx] = 1
                         
                         label = {
                             "main_role": main_role_idx,

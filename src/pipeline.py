@@ -169,8 +169,10 @@ class Pipeline:
                 input_ids=batch["input_ids"],
                 attention_mask=batch["attention_mask"],
                 entity_positions=batch["entity_position"],
-                labels=torch.cat(
-                    [batch["main_labels"].unsqueeze(-1), batch["fine_labels"]], dim=-1)
+                labels={
+                    "main_labels": batch["main_labels"],
+                    "fine_labels": batch["fine_labels"]
+                }
             )
 
             # Backward pass
@@ -232,9 +234,10 @@ class Pipeline:
                     input_ids=batch["input_ids"],
                     attention_mask=batch["attention_mask"],
                     entity_positions=batch["entity_position"],
-                    labels=torch.cat(
-                        [batch["main_labels"], batch["fine_labels"]], dim=1)
-                    if "main_labels" in batch else None
+                    labels={
+                        "main_labels": batch["main_labels"],
+                        "fine_labels": batch["fine_labels"]
+                    } if "main_labels" in batch else None
                 )
 
                 # Calculate metrics if labels available
@@ -403,7 +406,8 @@ class Pipeline:
         )
 
         # Training loop
-        best_val_metrics = {"loss": float('inf')}
+        best_val_loss = float('inf')
+        best_val_metrics = None
 
         for epoch in range(self.config["model"]["num_epochs"]):
             # Training
@@ -417,7 +421,8 @@ class Pipeline:
             self._log_metrics(epoch, train_metrics, val_metrics)
 
             # Save best model
-            if val_metrics.loss < best_val_metrics["loss"]:
+            if val_metrics.loss < best_val_loss:
+                best_val_loss = val_metrics.loss
                 best_val_metrics = val_metrics
                 self._save_checkpoint(
                     path=self._get_model_path(run_id, "best"),
@@ -427,7 +432,8 @@ class Pipeline:
                 )
 
             # Regular checkpoint
-            if (epoch + 1) % self.config["training"]["save_epochs"] == 0:
+            save_epochs = self.config["training"]["save_epochs"] != 0 and self.config["training"]["save_epochs"] is not None
+            if save_epochs and (epoch + 1) % self.config["training"]["save_epochs"] == 0:
                 self._save_checkpoint(
                     path=self._get_model_path(run_id, f"epoch_{epoch+1}"),
                     epoch=epoch,
@@ -444,7 +450,7 @@ class Pipeline:
         )
 
         logger.info("Training completed!")
-        logger.info(f"Best validation metrics: {best_val_metrics}")
+        logger.info(f"Best validation metrics - Loss: {best_val_metrics.loss:.4f}, Main Acc: {best_val_metrics.main_acc:.4f}, Fine Acc: {best_val_metrics.fine_acc:.4f}")
         logger.info(f"Models saved with run ID: {run_id}")
 
     def evaluate(
