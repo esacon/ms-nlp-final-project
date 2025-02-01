@@ -82,7 +82,7 @@ def main():
         pipeline.evaluate(
             languages=args.languages,
             output_dir=args.output_dir,
-            split="test" if not args.max_articles else "dev",
+            split="dev",
             max_articles=args.max_articles
         )
 

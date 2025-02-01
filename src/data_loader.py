@@ -139,8 +139,10 @@ class EntityDataset(Dataset):
             "input_ids": input_ids,
             "attention_mask": attention_mask,
             "entity_position": torch.tensor(features["entity_position"], dtype=torch.long),
-            "article_id": features.get("article_id", "unknown"),
-            "entity_mention": features.get("entity_mention", "")
+            "article_ids": features.get("article_ids", [features.get("article_id", "unknown")]),
+            "entity_mentions": features.get("entity_mentions", [features.get("entity_mention", "")]),
+            "start_offsets": features.get("start_offsets", [0]),
+            "end_offsets": features.get("end_offsets", [0])
         }
 
         # Handle entity embeddings with padding
@@ -400,6 +402,10 @@ class DataLoader:
                     # Add article ID to features
                     feature["article_id"] = article.id
                     feature["entity_mention"] = annotation.entity_mention
+                    feature["article_ids"] = [article.id]
+                    feature["entity_mentions"] = [annotation.entity_mention]
+                    feature["start_offsets"] = [annotation.start_offset]
+                    feature["end_offsets"] = [annotation.end_offset]
                     features.append(feature)
 
                     # Prepare labels if available
@@ -438,6 +444,37 @@ class DataLoader:
         pbar.close()
         return features, labels if has_labels else None
 
+    def collate_fn(self, batch):
+        """Custom collate function to handle batch data."""
+        # Collate tensors
+        input_ids = torch.stack([item["input_ids"] for item in batch])
+        attention_mask = torch.stack([item["attention_mask"] for item in batch])
+        entity_position = torch.stack([item["entity_position"] for item in batch])
+        
+        # Collate lists
+        article_ids = sum([item["article_ids"] for item in batch], [])
+        entity_mentions = sum([item["entity_mentions"] for item in batch], [])
+        start_offsets = sum([item["start_offsets"] for item in batch], [])
+        end_offsets = sum([item["end_offsets"] for item in batch], [])
+        
+        # Create batch dictionary
+        batch_dict = {
+            "input_ids": input_ids,
+            "attention_mask": attention_mask,
+            "entity_position": entity_position,
+            "article_ids": article_ids,
+            "entity_mentions": entity_mentions,
+            "start_offsets": start_offsets,
+            "end_offsets": end_offsets
+        }
+        
+        # Handle labels if they exist
+        if all("main_labels" in item for item in batch):
+            batch_dict["main_labels"] = torch.stack([item["main_labels"] for item in batch])
+            batch_dict["fine_labels"] = torch.stack([item["fine_labels"] for item in batch])
+        
+        return batch_dict
+
     def create_dataloader(
         self,
         features: List[Dict],
@@ -458,5 +495,6 @@ class DataLoader:
             dataset,
             batch_size=batch_size,
             shuffle=shuffle,
-            num_workers=self.config.get("num_workers", 0)
+            num_workers=self.config.get("num_workers", 0),
+            collate_fn=self.collate_fn
         )

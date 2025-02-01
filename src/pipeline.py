@@ -344,10 +344,10 @@ class Pipeline:
 
             # Create prediction entry
             prediction = {
-                "article_id": batch.get("article_ids", [""])[i],
-                "entity_mention": batch.get("entity_mentions", [""])[i],
-                "start_offset": batch.get("start_offsets", [0])[i],
-                "end_offset": batch.get("end_offsets", [0])[i],
+                "article_id": batch.get("article_ids", [])[i] if batch.get("article_ids") else "",
+                "entity_mention": batch.get("entity_mentions", [])[i] if batch.get("entity_mentions") else "",
+                "start_offset": batch.get("start_offsets", [])[i] if batch.get("start_offsets") else 0,
+                "end_offset": batch.get("end_offsets", [])[i] if batch.get("end_offsets") else 0,
                 "main_role": main_role,
                 "fine_grained_roles": predicted_fine_roles
             }
@@ -457,7 +457,7 @@ class Pipeline:
         self,
         languages: List[str],
         output_dir: str,
-        split: str = "test",
+        split: str = "dev",
         max_articles: Optional[int] = None
     ) -> None:
         """
